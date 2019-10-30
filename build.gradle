@@ -1,0 +1,59 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+    }
+}
+android {
+    compileSdkVersion 21
+    buildToolsVersion "26.0.2"
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            jniDebuggable true
+        }
+        release {
+            debuggable true
+            jniDebuggable true
+        }
+    }
+    defaultConfig {
+        minSdkVersion 21
+    }
+    dexOptions {
+        preDexLibraries = false
+    }
+    productFlavors {
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.aar'])
+        //implementation files('libs/dpuareu.jar')
+        //implementation files('libs/dpuareu.aar')
+
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:21.+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
