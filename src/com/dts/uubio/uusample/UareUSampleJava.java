@@ -340,6 +340,7 @@ public class UareUSampleJava extends PBase
 
     //region Activity Events
 
+
     @Override
     protected void onResume() {
         super.onResume();

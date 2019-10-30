@@ -20,8 +20,7 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@drawable/fplogo"
-        android:label="DTSolutions Biometrico"
-        android:testOnly="true" >
+        android:label="DTSolutions Biometrico" >
         <activity
             android:name="com.dts.uubio.uusample.UareUSampleJava"
             android:configChanges="keyboardHidden|orientation|screenSize"

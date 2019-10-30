@@ -125,6 +125,9 @@
       <find>m_device</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -163,6 +166,7 @@
     <option name="width" value="1232" />
     <option name="height" value="677" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <hideEmptyPackages AndroidView="false" />
@@ -278,6 +282,7 @@
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="192.168.1.168:5555" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-10-28T15:33:24.992Z" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.recentlyUsedThemes" value="android:Theme.Holo.NoActionBar&#10;android:Theme.Holo.Light.NoActionBar" />
