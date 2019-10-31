@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\AndrProj2\biomuu\libs"><file name="dpuareu.aar" path="C:\AndrProj2\biomuu\libs\dpuareu.aar"/><file name="dpuareu.jar" path="C:\AndrProj2\biomuu\libs\dpuareu.jar"/></source></dataSet><dataSet config="debug"><source path="C:\AndrProj2\biomuu\src\debug\jniLibs"/></dataSet></merger>

@@ -21,8 +21,10 @@ import com.digitalpersona.uareu.UareUGlobal;
 import com.dts.uubio.uusample.Globals;
 import com.dts.uubio.uusample.R;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
@@ -108,6 +110,7 @@ public class Test extends PBase {
 
                 if (cap_result == null || cap_result.image == null) return;
 
+
                 try {
                     m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
                     m_fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004);
@@ -116,6 +119,7 @@ public class Test extends PBase {
                     m_bitmap.compress(Bitmap.CompressFormat.JPEG,90, outputStream);
                     byte[] imgByte =outputStream.toByteArray();
 
+                   /*
                     byte[] fmtByte=cap_result.image.getViews()[0].getImageData();
                     m_fmdt=m_engine.CreateFmd(
                             fmtByte,
@@ -147,16 +151,19 @@ public class Test extends PBase {
                     } catch (Exception e) {
                         m_text="Error: " +e.toString();
                     }
-
+ */
                 } catch (Exception e) {
                     m_text="Error: " +e.toString();
                 }
+
+
+
+                initSearch();retflag=true;
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         UpdateGUI();
-                        msgbox(m_text);
                         if (retflag)  {
                             btnCap.setVisibility(View.INVISIBLE);
                             btnVer.setVisibility(View.VISIBLE);
@@ -169,6 +176,31 @@ public class Test extends PBase {
 
         }).start();
 
+    }
+
+    private void initSearch() {
+        String fpfold= Environment.getExternalStorageDirectory()+ "/fpuaudata/";
+
+        try {
+            File file = new File(fpfold + "2329.uud");
+            int size = (int) file.length();
+            byte[] fmtByte = new byte[size];
+            try {
+                BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+                buf.read(fmtByte, 0, fmtByte.length);
+                buf.close();
+            } catch (Exception e) {
+            }
+
+            m_fmdt=m_engine.CreateFmd(
+                    fmtByte,
+                    320,
+                    360,
+                    512,0,1,Fmd.Format.ANSI_378_2004 );
+
+        } catch (Exception e) {
+            msgbox(new Object(){}.getClass().getEnclosingMethod().getName()+" . "+e.getMessage());
+        }
     }
 
     private void validate() {

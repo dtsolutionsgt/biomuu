@@ -16,6 +16,7 @@ import com.dts.uubio.uu.PBase;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,6 +36,8 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class UareUSampleJava extends PBase
 {
 	private final int GENERAL_ACTIVITY_RESULT = 1;
@@ -43,12 +46,12 @@ public class UareUSampleJava extends PBase
 	
 	private TextView m_selectedDevice;
 	private Button m_getReader;
-	private Button m_getCapabilities;
+	//private Button m_getCapabilities;
 	private Button m_captureFingerprint;
-	private Button m_streamImage;
+	//private Button m_streamImage;
 	private Button m_enrollment;
 	private Button m_verification;
-	private Button m_identification;
+	//private Button m_identification;
 	private String m_deviceName = "";
 	private String m_versionName = "";
 
@@ -73,12 +76,12 @@ public class UareUSampleJava extends PBase
         processBundle(bundle);
 
 		m_getReader = (Button) findViewById(R.id.get_reader);
-		m_getCapabilities = (Button) findViewById(R.id.get_capabilities);
+		//m_getCapabilities = (Button) findViewById(R.id.get_capabilities);
 		m_captureFingerprint = (Button) findViewById(R.id.capture_fingerprint);
-		m_streamImage = (Button) findViewById(R.id.stream_image);
+		//m_streamImage = (Button) findViewById(R.id.stream_image);
 		m_enrollment = (Button) findViewById(R.id.enrollment);
 		m_verification = (Button) findViewById(R.id.verification);
-		m_identification = (Button) findViewById(R.id.identification);
+		//m_identification = (Button) findViewById(R.id.identification);
 		m_selectedDevice = (TextView) findViewById(R.id.selected_device);
 
 		setButtonsEnabled(false);
@@ -86,28 +89,30 @@ public class UareUSampleJava extends PBase
 		// register handler for UI elements
 		m_getReader.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				launchGetReader();
+                launchGetReader();
 			}
 		});
 
+		/*
 		m_getCapabilities.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v)	{
 				launchGetCapabilities();
 			}
 		});
-
+        */
 		m_captureFingerprint.setOnClickListener(new View.OnClickListener()	{
 			public void onClick(View v)	{
-				launchCaptureFingerprint();
+			    msgAskRestart("Reiniciar la aplicación");
+				//launchCaptureFingerprint();
 			}
 		});
-
+        /*
 		m_streamImage.setOnClickListener(new View.OnClickListener()	{
 			public void onClick(View v) {
 				launchStreamImage();
 			}
 		});
-
+        */
 		m_enrollment.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				launchEnrollment();
@@ -116,15 +121,18 @@ public class UareUSampleJava extends PBase
 
 		m_verification.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v)	{
-				launchVerification();
+				//launchVerification();
+                launchSearch();
 			}
 		});
 
+		/*
 		m_identification.setOnClickListener(new View.OnClickListener()	{
 			public void onClick(View v)	{
 				launchIdentification();
 			}
 		});
+  	   */
 
 		// get the version name
 		try	{
@@ -135,6 +143,14 @@ public class UareUSampleJava extends PBase
 
 		ActionBar ab = getActionBar();
 		ab.setTitle("DTSolutions Biometrico DPUaU");
+
+         try {
+            File directory = new File(Environment.getExternalStorageDirectory() + "/fpuaudata");
+            directory.mkdirs();
+        } catch (Exception e) {}
+
+
+
 	}
 
     @Override
@@ -148,8 +164,7 @@ public class UareUSampleJava extends PBase
         m_deviceName = (String) data.getExtras().get("device_name");
         gl.devicename=m_deviceName;
 
-        switch (requestCode)
-        {
+        switch (requestCode)   {
             case GENERAL_ACTIVITY_RESULT:
 
                 if((m_deviceName != null) && !m_deviceName.isEmpty()) {
@@ -215,23 +230,30 @@ public class UareUSampleJava extends PBase
         startActivity(new Intent(this,com.dts.uubio.uu.Compare.class));
     }
 
+    public void doSendResult(View view) {
+        Intent i = new Intent();
+        i.putExtra("device_name", m_deviceName);
+        setResult(Activity.RESULT_OK, i);
+
+        moveTaskToBack(true);
+    }
+
     //endregion
 
     //region Main
 
     private void processBundle(Bundle b) {
-        String method,param;
-
         try {
+            gl.method=b.getString("method");
+            gl.param1=b.getString("param1");
+            gl.param2=b.getString("param2");
 
-            method=b.getString("method");
-            param=b.getString("param");
-
+            if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
         } catch (Exception e) {
-            method="";param="";
+            gl.method="";gl.param1="";gl.param2="";gl.param3="";
         }
 
-        toast("M : "+method+" P:"+param);
+        //toast("M : "+gl.method+" P:"+param);
     }
 
     protected void launchGetReader() {
@@ -259,10 +281,23 @@ public class UareUSampleJava extends PBase
 	}
 
 	protected void launchEnrollment() 	{
-		Intent i = new Intent(UareUSampleJava.this, EnrollmentActivity.class);
-		i.putExtra("device_name", m_deviceName);
-		startActivityForResult(i, 1);
-	}
+
+        if (gl.param1.isEmpty()) {
+            displayNoID();
+        } else {
+            gl.modoid=false;
+            Intent i = new Intent(UareUSampleJava.this, EnrollmentActivity.class);
+            i.putExtra("device_name", m_deviceName);
+            startActivityForResult(i, 1);
+        }
+ 	}
+
+    protected void launchSearch() 	{
+        gl.modoid=true;
+        Intent i = new Intent(UareUSampleJava.this, EnrollmentActivity.class);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 1);
+     }
 
 	protected void launchVerification() {
 		Intent i = new Intent(UareUSampleJava.this, VerificationActivity.class);
@@ -281,23 +316,23 @@ public class UareUSampleJava extends PBase
 	//region Aux
 
 	protected void setButtonsEnabled(Boolean enabled) {
-		m_getCapabilities.setEnabled(enabled);
-		m_streamImage.setEnabled(enabled);
+		//m_getCapabilities.setEnabled(enabled);
+		//m_streamImage.setEnabled(enabled);
 		m_captureFingerprint.setEnabled(enabled);
 		m_enrollment.setEnabled(enabled);
 		m_verification.setEnabled(enabled);
-		m_identification.setEnabled(enabled);
+		//m_identification.setEnabled(enabled);
 	}
 
 	protected void setButtonsEnabled_Capture(Boolean enabled) {
 		m_captureFingerprint.setEnabled(enabled);
 		m_enrollment.setEnabled(enabled);
 		m_verification.setEnabled(enabled);
-		m_identification.setEnabled(enabled);
+		//m_identification.setEnabled(enabled);
 	}
 
 	protected void setButtonsEnabled_Stream(Boolean enabled) {
-		m_streamImage.setEnabled(enabled);
+		//m_streamImage.setEnabled(enabled);
 	}
 
 	protected void CheckDevice() {
@@ -314,13 +349,36 @@ public class UareUSampleJava extends PBase
 	}
 
     private void displayReaderNotFound() {
-        m_selectedDevice.setText("Device: (No Reader Selected)");
+        m_selectedDevice.setText("Dispositivo : (Sin lector)");
+        setButtonsEnabled(false);
+
+        //toast("Lector no encontrado");
+        launchGetReader();
+
+        /*
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Lector no encontrado");
+        alertDialogBuilder.setMessage("Conecte el lector e intente de nuevo.").setCancelable(false).setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        launchGetReader();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        if(!isFinishing()) {
+            alertDialog.show();
+        }
+
+         */
+    }
+
+    private void displayNoID() {
         setButtonsEnabled(false);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Reader Not Found");
-        alertDialogBuilder.setMessage("Plug in a reader and try again.").setCancelable(false).setPositiveButton("Ok",
-                new DialogInterface.OnClickListener()
-                {
+        alertDialogBuilder.setTitle("Identificacion incorrecta");
+        alertDialogBuilder.setMessage("No se puede enrollar sin identificación de persona.").setCancelable(false).setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()  {
                     public void onClick(DialogInterface dialog,int id) {}
                 });
 
@@ -329,6 +387,42 @@ public class UareUSampleJava extends PBase
             alertDialog.show();
         }
     }
+
+
+    private void msgAskRestart(String msg) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setTitle("Reinicio");
+        dialog.setMessage("¿" + msg + "?");
+
+        dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                restartApp();
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+
+        dialog.show();
+
+    }
+
+    private void restartApp(){
+        try{
+            PackageManager packageManager = this.getPackageManager();
+            Intent intent = packageManager.getLaunchIntentForPackage(this.getPackageName());
+            ComponentName componentName = intent.getComponent();
+            Intent mainIntent =Intent.makeRestartActivityTask(componentName);
+            //Intent mainIntent = IntentCompat..makeRestartActivityTask(componentName);
+            this.startActivity(mainIntent);
+            System.exit(0);
+        }catch (Exception e){
+        }
+
+    }
+
 
     protected void toast(String msg) {
         Toast toast= Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT);
@@ -345,7 +439,7 @@ public class UareUSampleJava extends PBase
         super.onResume();
 
         try {
-            toast("Resume :"+gl.devicename);
+            //toast("Resume :"+gl.devicename);
             if (gl.devicename.isEmpty()) {
                 setButtonsEnabled(false);
             } else {
@@ -366,7 +460,7 @@ public class UareUSampleJava extends PBase
         // reset you to initial state when activity stops
         m_selectedDevice.setText("Device: (No Reader Selected)");
         setButtonsEnabled(false);
-        toast("Stop :"+gl.devicename);
+        //toast("Stop :"+gl.devicename);
         super.onStop();
     }
 

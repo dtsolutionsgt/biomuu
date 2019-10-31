@@ -72,7 +72,7 @@ public class Compare extends PBase {
         match=0;nomatch=0;
 
         //file2 = new File(fpfold + "f00" + i + ".uuf");
-        file2 = new File(fpfold + "f001.uuf");
+        file2 = new File(fpfold + "2329.uud");
         size2 = (int) file2.length();
         fmtByte2 = new byte[size2];
         try {
@@ -130,7 +130,7 @@ public class Compare extends PBase {
 
         try {
 
-            File file = new File(fpfold+"f001.uuf");
+            File file = new File(fpfold + "2329.uud");
             int size = (int) file.length();
             byte[] fmtByte = new byte[size];
             try {

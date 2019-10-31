@@ -14,30 +14,36 @@ import com.digitalpersona.uareu.Fmd;
 import com.digitalpersona.uareu.Fmd.Format;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.Reader.Priority;
+import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import com.dts.uubio.base.MiscUtils;
-
+import com.dts.uubio.uu.PBase;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Environment;
+import android.os.SystemClock;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
-import android.widget.Toast;
 
-public class EnrollmentActivity extends Activity {
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class EnrollmentActivity extends PBase {
 
     private ImageView m_imgView;
     private TextView m_text;
     private TextView m_text_conclusion;
+    private TextView m_title;
 	private Button m_back;
 
     private MiscUtils mu;
@@ -46,9 +52,13 @@ public class EnrollmentActivity extends Activity {
     private Fmd m_enrollment_fmd = null;
     private EnrollmentCallback enrollThread = null;
     private Reader.CaptureResult cap_result = null;
+    private PreEnrollmentFmd prefmd=null;
+    private Fmd fmd=null,fmdt=null;
 
     private Reader m_reader = null;
     private Bitmap m_bitmap = null;
+
+    private byte[] fmtByte;
 
     private String m_deviceName = "",m_enginError;
     private String m_textString, m_text_conclusionString;
@@ -56,68 +66,45 @@ public class EnrollmentActivity extends Activity {
 	private boolean m_reset = false, m_first = true;
 	private boolean m_success = false, exitflag=false;
 
-	private String enrollstat="0";
+	private String fname,fpfold;
+    private boolean modo;
+
+    final int REQUEST_CODE=101;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_engine);
 
+        super.InitBase();
+
         m_imgView = (ImageView) findViewById(R.id.bitmap_image);
         m_back = (Button) findViewById(R.id.back);
         m_text = (TextView) findViewById(R.id.text);
         m_text_conclusion = (TextView) findViewById(R.id.text_conclusion);
+        m_title = (TextView) findViewById(R.id.textView8);
 
         mu=new MiscUtils(this);
 
+        modo=gl.modoid;
+
         initializeActivity();
 
-        // initiliaze dp sdk
-        try {
-            Context applContext = getApplicationContext();
-            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
-            m_reader.Open(Priority.EXCLUSIVE);
-            m_DPI = Globals.GetFirstDPI(m_reader);
-            m_engine = UareUGlobal.GetEngine();
-        } catch (Exception e) {
-            Log.w("UareUSampleJava", "error during init of reader");
+        fpfold= Environment.getExternalStorageDirectory()+ "/fpuaudata/";
+        fname=Environment.getExternalStorageDirectory()+ "/fpuaudata/"+gl.param1+".uud";
+
+        if (!initializeSDK()) {
             m_deviceName = "";
             onBackPressed();
             return;
+        };
+
+        if (modo) {
+            beginIdentification();
+        } else {
+            beginEnrollment();
         }
 
-        // loop capture on a separate thread to avoid freezing the UI
-        new Thread(new Runnable() 	{
-            @Override
-            public void run() {
-                try {
-                    m_current_fmds_count = 0;
-                    m_reset = false;
-                    enrollThread = new EnrollmentCallback(m_reader, m_engine);
-                    while (!m_reset) {
-                        try {
-                            m_enrollment_fmd = m_engine.CreateEnrollmentFmd(Fmd.Format.ANSI_378_2004, enrollThread);
-                            if (m_success = (m_enrollment_fmd != null)) {
-                                m_current_fmds_count = 0;	// reset count on success
-                            }
-                        } catch (Exception e) {
-                            m_current_fmds_count = 0;
-                        }
-                    }
-
-                    if (exitflag) {
-                         onBackPressed();
-                    }
-
-                } catch (Exception e) {
-                    if(!m_reset) {
-                        Log.w("UareUSampleJava", "error during capture");
-                        //m_deviceName = "";
-                        onBackPressed();
-                    }
-                }
-            }
-        }).start();
     }
 
     //region Events
@@ -129,6 +116,128 @@ public class EnrollmentActivity extends Activity {
     //endregion
 
     //region Main
+
+    private void beginEnrollment() {
+        // loop capture on a separate thread to avoid freezing the UI
+        new Thread(new Runnable() 	{
+            @Override
+            public void run() {
+                try {
+                    m_current_fmds_count = 0;
+                    m_reset = false;
+                    enrollThread = new EnrollmentCallback(m_reader, m_engine);
+
+                    while (!m_reset) {
+
+                        try {
+                            m_enrollment_fmd = m_engine.CreateEnrollmentFmd(Fmd.Format.ANSI_378_2004, enrollThread);
+                            if (m_success = (m_enrollment_fmd != null)) {
+                                    m_current_fmds_count = 0;	// reset count on success
+                            }
+                        } catch (Exception e) {
+                            m_current_fmds_count = 0;
+                        }
+                    }
+
+                    if (exitflag)  completeEnrollment();
+
+                } catch (Exception e) {
+                    if(!m_reset) {
+                        Log.w("UareUSampleJava", "Error de captura");
+                        //m_deviceName = "";
+                        onBackPressed();
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    private void beginIdentification() {
+
+        new Thread(new Runnable()         {
+            @Override
+            public void run() {
+
+                m_reset = false;
+
+                while (!m_reset) {
+
+                    m_textString = "Coloque el dedo al lector";
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            UpdateGUI();
+                        }
+                    });
+
+                    try {
+                        cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+                    } catch (Exception e) {
+                        m_textString = e.toString();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                UpdateGUI();
+                            }
+                        });
+                        if (!m_reset) continue;
+                    }
+
+                    if (cap_result == null || cap_result.image == null) continue;
+
+                    try {
+                        m_enginError = "";
+
+                        m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
+
+                        byte[] fmtByte=cap_result.image.getViews()[0].getImageData();
+
+                        fmd=m_engine.CreateFmd(
+                                fmtByte,
+                                m_bitmap.getWidth(),
+                                m_bitmap.getHeight(),
+                                512, 0, 1, Fmd.Format.ANSI_378_2004 );
+
+
+                        m_reset=true;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                UpdateGUI();
+                                Compare();
+                            }
+                        });
+
+
+                        //m_score = m_engine.Compare(m_fmdt, 0, m_fmd2 , 0);
+                        //m_score = m_engine.Compare(m_fmd, 0, m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004), 0);
+                        //m_resultAvailableToDisplay = true;
+                    } catch (Exception e) {
+                        m_textString = e.toString(); continue;
+                    }
+
+                    /*
+                    if (m_resultAvailableToDisplay) {
+                        DecimalFormat formatting = new DecimalFormat("##.######");
+                        //m_text = "Dissimilarity Score: " + String.valueOf(m_score) + ", False match rate: " + Double.valueOf(formatting.format((double) m_score / 0x7FFFFFFF)) + " (" + (m_score < (0x7FFFFFFF / 100000) ? "match" : "no match") + ")";
+
+                        fscore=(double) m_score;fscore=100*fscore/0x7FFFFFFF;fscore=100-fscore;
+                        if (m_score < (0x7FFFFFFF / 100000)) {
+                            match=true;m_text="MATCH\n\n";
+                        } else {
+                            match=false;m_text="NO COINCIDE\n\n";
+                        }
+                        m_text += "Match rate: " +formatting.format(fscore) + " % ";
+
+                    }
+*/
+
+                }
+            }
+        }).start();
+
+    }
 
     public class EnrollmentCallback extends Thread 	implements Engine.EnrollmentCallback {
         public int m_current_index = 0;
@@ -144,11 +253,14 @@ public class EnrollmentActivity extends Activity {
         // callback function is called by dp sdk to retrieve fmds until a null is returned
         @Override
         public PreEnrollmentFmd GetFmd(Format format) {
-            PreEnrollmentFmd result = null;
-            while (!m_reset) {
-                try	{
 
+            PreEnrollmentFmd result = null;
+
+            while (!m_reset) {
+
+                try	{
                     m_text_conclusionString = "LISTO";
+
                     runOnUiThread(new Runnable(){
                         @Override public void run()  {
                             UpdateGUI();
@@ -157,8 +269,6 @@ public class EnrollmentActivity extends Activity {
 
                     cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
                 } catch (Exception e) {
-                    Log.w("UareUSampleJava", "Error de captura : " + e.toString());
-                    //m_deviceName = "";
                     onBackPressed();
                 }
 
@@ -176,7 +286,10 @@ public class EnrollmentActivity extends Activity {
                     m_enginError = "";
                     // save bitmap image locally
                     m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
-                    PreEnrollmentFmd prefmd = new Engine.PreEnrollmentFmd();
+
+                    fmtByte=cap_result.image.getViews()[0].getImageData();
+
+                    prefmd = new Engine.PreEnrollmentFmd();
                     prefmd.fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004);
                     prefmd.view_index = 0;
                     m_current_fmds_count++;
@@ -185,7 +298,6 @@ public class EnrollmentActivity extends Activity {
                     break;
                 } catch (Exception e) {
                     m_enginError = e.toString();
-                    Log.w("UareUSampleJava", "Engine error: " + e.toString());
                 }
             }
 
@@ -196,7 +308,7 @@ public class EnrollmentActivity extends Activity {
             }
 
             if(!m_enginError.isEmpty()) {
-                m_text_conclusionString = "Engine: " + m_enginError;
+                m_text_conclusionString = "Error de captura : " + m_enginError;
             }
 
             if (m_enrollment_fmd != null || m_current_fmds_count == 0) {
@@ -206,17 +318,15 @@ public class EnrollmentActivity extends Activity {
 
                 if (m_success) {
                     m_textString = "Completo";
-                    exitflag=true;enrollstat="1";
-                    m_reset=true;
+                    exitflag = true;
+                    m_reset = true;
                 } else {
                     m_textString = "Coloque el dedo al lector";
                     m_enrollment_fmd = null;
                 }
-
-            } else 	{
+            } else {
                 m_first = false;
                 m_success = false;
-                //m_imgView.setVisibility(View.INVISIBLE);
                 m_textString = "Coloque el MISMO dedo al lector";
             }
 
@@ -230,11 +340,13 @@ public class EnrollmentActivity extends Activity {
         }
     }
 
-    //endregion
-
-    //region Aux
-
     private void initializeActivity() {
+
+        if (gl.modoid) {
+            m_title.setText("IDENTIFICACIÓN");
+        } else {
+            m_title.setText("Enrollamiento : "+ gl.param2);
+        }
 
         m_textString = "Coloque el dedo al lector";
         m_enginError = "";
@@ -249,6 +361,128 @@ public class EnrollmentActivity extends Activity {
         Globals.DefaultImageProcessing = Reader.ImageProcessing.IMG_PROC_DEFAULT;
     }
 
+    private boolean initializeSDK() {
+        try {
+            Context applContext = getApplicationContext();
+            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+            m_reader.Open(Priority.EXCLUSIVE);
+            m_DPI = Globals.GetFirstDPI(m_reader);
+            m_engine = UareUGlobal.GetEngine();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    //endregion
+
+    //region Enrollment
+
+    private void completeEnrollment() {
+
+        try {
+            File file = new File(fname); if (file.exists()) file.delete();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(fmtByte);
+            fos.close();
+
+            signEnroll();
+
+            SystemClock.sleep(1200);
+            moveTaskToBack(true);
+            onBackPressed();
+        } catch (Exception e) {
+            m_text.setText("Error: ");
+            m_text_conclusion.setText(e.toString());
+        }
+    }
+
+    private void signEnroll() {
+        try {
+            File file = new File(Environment.getExternalStorageDirectory() + "/biomuu_erl.txt");
+            FileOutputStream stream = new FileOutputStream(file);
+            stream.write(gl.param1.getBytes());
+            stream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //endregion
+
+
+    //region Identification
+
+    private void completeSearch() {
+        try {
+
+            toast("Search");
+
+            SystemClock.sleep(1200);
+            moveTaskToBack(true);
+            onBackPressed();
+        } catch (Exception e) {
+            m_text.setText("Error: ");
+            m_text_conclusion.setText(e.toString());
+        }
+    }
+
+    private boolean Compare() {
+
+        m_text.setText("Comparando ");
+        m_text_conclusion.setText("......");
+
+        match();
+
+        return true;
+    }
+
+    private boolean match() {
+        File file2;
+        int size2,m_score = -1;
+        byte[] fmtByte2;
+        boolean rslt=false;
+
+        file2 = new File(fpfold + "2329.uud");
+        size2 = (int) file2.length();
+        fmtByte2 = new byte[size2];
+        try {
+            BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
+            buf2.read(fmtByte2, 0, fmtByte2.length);
+            buf2.close();
+        } catch (Exception e) {
+        }
+
+        try {
+            fmdt = m_engine.CreateFmd(
+                    fmtByte2,
+                    320,
+                    360,
+                    512, 0, 1, Fmd.Format.ANSI_378_2004);
+        } catch (UareUException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            m_score = m_engine.Compare(fmd, 0, fmdt, 0);
+            if (m_score < (0x7FFFFFFF / 100000)) {
+                rslt=true;msgbox("Match");
+            } else {
+                rslt=false;msgbox("No match");
+            }
+        } catch (UareUException e) {
+            msgbox(e.getMessage());
+            rslt=false;
+        }
+
+        return rslt;
+    }
+
+    //endregion
+
+
+    //region Aux
+
     public void UpdateGUI() {
         m_imgView.setVisibility(View.VISIBLE);
         m_imgView.setImageBitmap(m_bitmap);
@@ -256,6 +490,7 @@ public class EnrollmentActivity extends Activity {
         m_text_conclusion.setText(m_text_conclusionString);
         m_text.setText(m_textString);
     }
+
 
     //endregion
 
@@ -280,13 +515,16 @@ public class EnrollmentActivity extends Activity {
             try {m_reader.CancelCapture(); } catch (Exception e) {}
             m_reader.Close();
         } catch (Exception e) {
-            Log.w("UareUSampleJava", "error during reader shutdown");
+            Log.w("UareUSampleJava", "Error de desactivación de lector");
         }
 
         Intent i = new Intent();
         i.putExtra("device_name", m_deviceName);
         setResult(Activity.RESULT_OK, i);
+
         finish();
+
+
     }
 
     //endregion
