@@ -8,6 +8,7 @@
     <application
         android:name="com.dts.uubio.base.appGlobals"
         android:allowBackup="true"
+        android:largeHeap="true"
         android:icon="@drawable/fplogo"
         android:label="DTSolutions Biometrico">
          <activity

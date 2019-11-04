@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -6,7 +7,9 @@
     <LinearLayout
         android:layout_width="400dp"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="90dp"
         android:layout_marginRight="40dp"
         android:orientation="vertical"
         android:padding="10dp">
@@ -74,13 +77,6 @@
             android:text="@string/identification"
             android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/selected_device"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/serial_number" />
-
     </LinearLayout>
 
     <Button
@@ -92,7 +88,8 @@
         android:layout_marginStart="41dp"
         android:layout_marginTop="151dp"
         android:onClick="doTest"
-        android:text="Comparar" />
+        android:text="Comparar"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/button2"
@@ -103,7 +100,8 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="32dp"
         android:onClick="doCompare"
-        android:text="Buscar" />
+        android:text="Buscar"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/button6"
@@ -111,8 +109,54 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginBottom="295dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginBottom="411dp"
         android:onClick="doSendResult"
-        android:text="result" />
+        android:text="result"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/selected_device"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/serial_number" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/fpscan" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="DTSolutions S.A. (C) 2019 , Guatemala" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="340dp"
+        android:layout_marginBottom="275dp"
+        android:onClick="dofillfp"
+        android:text="Button"
+        android:visibility="invisible" />
 </RelativeLayout>

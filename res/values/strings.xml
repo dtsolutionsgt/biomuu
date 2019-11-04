@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Biometrico DPUaU</string>
-    <string name="serial_number">Serial Number: (No Reader Selected)</string>
+    <string name="serial_number"> (Sin lector activo)</string>
     <string name="get_reader">Get Reader</string>
     <string name="get_capabilities">Get Capabilities</string>
-    <string name="capture_fingerprint">Capture</string>
+    <string name="capture_fingerprint">Captura</string>
     <string name="stream_image">Stream Image</string>
     <string name="enrollment">Enrollment</string>
     <string name="verification">Verification</string>

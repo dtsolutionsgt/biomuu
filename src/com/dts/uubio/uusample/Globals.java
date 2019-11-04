@@ -108,34 +108,29 @@ public class Globals
 
 	public static final String QualityToString(Reader.CaptureResult result)
 	{
-		if(result == null)
-		{
+		if(result == null) {
 			return "";
-		}
-		if(result.quality == null)
-		{
-			return "An error occurred";
-		}
-		switch(result.quality)
-		{
-		case FAKE_FINGER:         return "Fake finger";
-		case NO_FINGER:           return "No finger";
-		case CANCELED:            return "Capture cancelled";
-		case TIMED_OUT:           return "Capture timed out";
-		case FINGER_TOO_LEFT:     return "Finger too left";
-		case FINGER_TOO_RIGHT:    return "Finger too right";
-		case FINGER_TOO_HIGH:     return "Finger too high";
-		case FINGER_TOO_LOW:      return "Finger too low";
-		case FINGER_OFF_CENTER:   return "Finger off center";
-		case SCAN_SKEWED:         return "Scan skewed";
-		case SCAN_TOO_SHORT:      return "Scan too short";
-		case SCAN_TOO_LONG:       return "Scan too long";
-		case SCAN_TOO_SLOW:       return "Scan too slow";
-		case SCAN_TOO_FAST:       return "Scan too fast";
-		case SCAN_WRONG_DIRECTION:return "Wrong direction";
-		case READER_DIRTY:        return "Reader dirty";
-		case GOOD:                return "Image acquired";
-		default:                  return "An error occurred";
+		} if(result.quality == null) {
+			return "Ocurrió un error";
+		} switch(result.quality) {
+            case FAKE_FINGER:         return "Dedo erroneo";
+            case NO_FINGER:           return "Sin dedo";
+            case CANCELED:            return "Captura cancelada";
+            case TIMED_OUT:           return "Tiempo de captura expiro";
+            case FINGER_TOO_LEFT:     return "Dedo muy a izquierda";
+            case FINGER_TOO_RIGHT:    return "Dedo muy a derecho";
+            case FINGER_TOO_HIGH:     return "Dedo muy arriba";
+            case FINGER_TOO_LOW:      return "Dedo muy abajo";
+            case FINGER_OFF_CENTER:   return "Dedo colocado incorrectamente";
+            case SCAN_SKEWED:         return "Escaneo distorcionado";
+            case SCAN_TOO_SHORT:      return "Escaneo muy corto";
+            case SCAN_TOO_LONG:       return "Escaneo muy largo";
+            case SCAN_TOO_SLOW:       return "Escaneo muy lento";
+            case SCAN_TOO_FAST:       return "Escaneo muy rapido";
+            case SCAN_WRONG_DIRECTION:return "Dirección incorrecta";
+            case READER_DIRTY:        return "Lector sucio";
+            case GOOD:                return "Imagen capturado";
+            default:                  return "Ocurrió un error";
 		}
 	}
 	public static final int GetFirstDPI(Reader reader)

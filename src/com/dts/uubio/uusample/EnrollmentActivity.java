@@ -14,7 +14,6 @@ import com.digitalpersona.uareu.Fmd;
 import com.digitalpersona.uareu.Fmd.Format;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.Reader.Priority;
-import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import com.dts.uubio.base.MiscUtils;
 import com.dts.uubio.uu.PBase;
@@ -25,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -37,12 +37,14 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class EnrollmentActivity extends PBase {
 
     private ImageView m_imgView;
     private TextView m_text;
     private TextView m_text_conclusion;
+    private TextView m_text_prog;
     private TextView m_title;
 	private Button m_back;
 
@@ -53,21 +55,24 @@ public class EnrollmentActivity extends PBase {
     private EnrollmentCallback enrollThread = null;
     private Reader.CaptureResult cap_result = null;
     private PreEnrollmentFmd prefmd=null;
-    private Fmd fmd=null,fmdt=null;
+    private Fmd fmd=null;
 
     private Reader m_reader = null;
     private Bitmap m_bitmap = null;
 
     private byte[] fmtByte;
+    private ArrayList<String> fprint = new ArrayList<String>();
 
     private String m_deviceName = "",m_enginError;
-    private String m_textString, m_text_conclusionString;
+    private String m_textString, m_text_conclusionString,m_textprog;
 	private int m_DPI = 0,m_current_fmds_count = 0;
 	private boolean m_reset = false, m_first = true;
 	private boolean m_success = false, exitflag=false;
 
 	private String fname,fpfold;
-    private boolean modo;
+    private boolean modo,match;
+    private int spos;
+    private String scode,matchcode,ss;
 
     final int REQUEST_CODE=101;
 
@@ -82,6 +87,7 @@ public class EnrollmentActivity extends PBase {
         m_back = (Button) findViewById(R.id.back);
         m_text = (TextView) findViewById(R.id.text);
         m_text_conclusion = (TextView) findViewById(R.id.text_conclusion);
+        m_text_prog = (TextView) findViewById(R.id.text_conclusion2);
         m_title = (TextView) findViewById(R.id.textView8);
 
         mu=new MiscUtils(this);
@@ -100,6 +106,7 @@ public class EnrollmentActivity extends PBase {
         };
 
         if (modo) {
+            getFPList();
             beginIdentification();
         } else {
             beginEnrollment();
@@ -163,14 +170,6 @@ public class EnrollmentActivity extends PBase {
 
                 while (!m_reset) {
 
-                    m_textString = "Coloque el dedo al lector";
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            UpdateGUI();
-                        }
-                    });
-
                     try {
                         cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
                     } catch (Exception e) {
@@ -187,8 +186,6 @@ public class EnrollmentActivity extends PBase {
                     if (cap_result == null || cap_result.image == null) continue;
 
                     try {
-                        m_enginError = "";
-
                         m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
 
                         byte[] fmtByte=cap_result.image.getViews()[0].getImageData();
@@ -199,40 +196,26 @@ public class EnrollmentActivity extends PBase {
                                 m_bitmap.getHeight(),
                                 512, 0, 1, Fmd.Format.ANSI_378_2004 );
 
-
-                        m_reset=true;
+                        m_textString="Comparando ";
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 UpdateGUI();
+                            }
+                        });
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 Compare();
                             }
                         });
 
+                        m_reset=true;
 
-                        //m_score = m_engine.Compare(m_fmdt, 0, m_fmd2 , 0);
-                        //m_score = m_engine.Compare(m_fmd, 0, m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004), 0);
-                        //m_resultAvailableToDisplay = true;
                     } catch (Exception e) {
                         m_textString = e.toString(); continue;
                     }
-
-                    /*
-                    if (m_resultAvailableToDisplay) {
-                        DecimalFormat formatting = new DecimalFormat("##.######");
-                        //m_text = "Dissimilarity Score: " + String.valueOf(m_score) + ", False match rate: " + Double.valueOf(formatting.format((double) m_score / 0x7FFFFFFF)) + " (" + (m_score < (0x7FFFFFFF / 100000) ? "match" : "no match") + ")";
-
-                        fscore=(double) m_score;fscore=100*fscore/0x7FFFFFFF;fscore=100-fscore;
-                        if (m_score < (0x7FFFFFFF / 100000)) {
-                            match=true;m_text="MATCH\n\n";
-                        } else {
-                            match=false;m_text="NO COINCIDE\n\n";
-                        }
-                        m_text += "Match rate: " +formatting.format(fscore) + " % ";
-
-                    }
-*/
-
                 }
             }
         }).start();
@@ -349,7 +332,7 @@ public class EnrollmentActivity extends PBase {
         }
 
         m_textString = "Coloque el dedo al lector";
-        m_enginError = "";
+        m_enginError = "";m_textprog="";
         m_deviceName = getIntent().getExtras().getString("device_name");
 
         m_bitmap = Globals.GetLastBitmap();
@@ -365,11 +348,15 @@ public class EnrollmentActivity extends PBase {
         try {
             Context applContext = getApplicationContext();
             m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
-            m_reader.Open(Priority.EXCLUSIVE);
+            m_reader.Open(Priority.COOPERATIVE);
             m_DPI = Globals.GetFirstDPI(m_reader);
             m_engine = UareUGlobal.GetEngine();
+            gl.sdkready=true;
+            toast("Enr true");
             return true;
         } catch (Exception e) {
+            toast("Enr false");
+            gl.sdkready=false;
             return false;
         }
     }
@@ -410,72 +397,122 @@ public class EnrollmentActivity extends PBase {
 
     //endregion
 
-
     //region Identification
 
-    private void completeSearch() {
+    private void Compare() {
+        String fn;
+
+        match=false;spos=-1;
+        scode="";matchcode="";
+
+        for (int i = 0; i <fprint.size(); i++) {
+
+            fn=fprint.get(i);
+
+            m_text_conclusionString="";
+            m_textprog=(i+1)+" / "+fprint.size();
+
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    UpdateGUI();
+                }
+            });
+
+            match(fn);
+            if (match) {
+                toast("Encontrado : "+fn);
+                completeMatch();return;
+            }
+        }
+
+        toast("HUELLA NO ENCONTRADA");
+
+        SystemClock.sleep(100);
+        moveTaskToBack(true);
+        onBackPressed();
+
+        /*
+
+        m_textString = "Coloque el dedo al lector";
+        m_text_conclusionString="Huella no encontrada";
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UpdateGUI();
+            }
+        });
+
+        Handler mtimer = new Handler();
+        Runnable mrunner = new Runnable() {
+            @Override
+            public void run() {
+                beginIdentification();
+            }
+        };
+        mtimer.postDelayed(mrunner, 200);
+        */
+    }
+
+    private boolean match(String iid) {
+        Fmd fmdt=null;
+        File file2;
+        int size2,m_score = -1;
+        byte[] fmtByte2;
+        boolean rslt=false;
+
         try {
+            file2 = new File(fpfold + iid);
+            size2 = (int) file2.length();
+            fmtByte2 = new byte[size2];
 
-            toast("Search");
+            BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
+            buf2.read(fmtByte2, 0, fmtByte2.length);
+            buf2.close();
 
-            SystemClock.sleep(1200);
+            fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
+
+            m_score = m_engine.Compare(fmd, 0, fmdt, 0);
+            if (m_score < (0x7FFFFFFF / 100000)) rslt=true; else rslt=false;
+        } catch (Exception e) {
+            msgbox(e.getMessage());rslt=false;
+        }
+
+        if (rslt) {
+            match=true;matchcode=iid;
+        }
+
+        return rslt;
+    }
+
+    private void completeMatch() {
+        String cod;
+
+        try {
+            cod=matchcode;
+            cod=cod.substring(0,cod.length()-4);
+
+            File file = new File(Environment.getExternalStorageDirectory() + "/biomuu_idf.txt");
+            FileOutputStream stream = new FileOutputStream(file);
+            stream.write(cod.getBytes());
+            stream.close();
+
+            m_textString="Encontrado";m_textprog="";
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    UpdateGUI();
+                }
+            });
+
+            SystemClock.sleep(1000);
             moveTaskToBack(true);
             onBackPressed();
         } catch (Exception e) {
             m_text.setText("Error: ");
             m_text_conclusion.setText(e.toString());
         }
-    }
-
-    private boolean Compare() {
-
-        m_text.setText("Comparando ");
-        m_text_conclusion.setText("......");
-
-        match();
-
-        return true;
-    }
-
-    private boolean match() {
-        File file2;
-        int size2,m_score = -1;
-        byte[] fmtByte2;
-        boolean rslt=false;
-
-        file2 = new File(fpfold + "2329.uud");
-        size2 = (int) file2.length();
-        fmtByte2 = new byte[size2];
-        try {
-            BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
-            buf2.read(fmtByte2, 0, fmtByte2.length);
-            buf2.close();
-        } catch (Exception e) {
-        }
-
-        try {
-            fmdt = m_engine.CreateFmd(
-                    fmtByte2,
-                    320,
-                    360,
-                    512, 0, 1, Fmd.Format.ANSI_378_2004);
-        } catch (UareUException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            m_score = m_engine.Compare(fmd, 0, fmdt, 0);
-            if (m_score < (0x7FFFFFFF / 100000)) {
-                rslt=true;msgbox("Match");
-            } else {
-                rslt=false;msgbox("No match");
-            }
-        } catch (UareUException e) {
-            msgbox(e.getMessage());
-            rslt=false;
-        }
-
-        return rslt;
     }
 
     //endregion
@@ -487,10 +524,30 @@ public class EnrollmentActivity extends PBase {
         m_imgView.setVisibility(View.VISIBLE);
         m_imgView.setImageBitmap(m_bitmap);
         m_imgView.invalidate();
+
         m_text_conclusion.setText(m_text_conclusionString);
         m_text.setText(m_textString);
+        m_text_prog.setText(m_textprog);
     }
 
+    private void getFPList() {
+        String fn;
+        ss="";
+
+        try {
+            File folder = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata");
+            File[] filesInFolder = folder.listFiles();
+            for (File file : filesInFolder) {
+                if (!file.isDirectory()) {
+                    fn=new String(file.getName());
+                    fprint.add(fn);ss+=fn+"\n";
+                }
+            }
+        } catch (Exception e) {
+            msgbox(e.getMessage());
+        }
+
+    }
 
     //endregion
 
@@ -515,7 +572,6 @@ public class EnrollmentActivity extends PBase {
             try {m_reader.CancelCapture(); } catch (Exception e) {}
             m_reader.Close();
         } catch (Exception e) {
-            Log.w("UareUSampleJava", "Error de desactivación de lector");
         }
 
         Intent i = new Intent();
