@@ -24,8 +24,7 @@ import android.widget.ListView;
 
 import android.content.Context;
 
-public class GetReaderActivity extends Activity 
-{
+public class GetReaderActivity extends Activity {
 	private Button m_back;
 	private String m_deviceName = "";
 
@@ -34,8 +33,7 @@ public class GetReaderActivity extends Activity
 	private Bundle savedInstanceState = null;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_get_list);
 
@@ -50,22 +48,19 @@ public class GetReaderActivity extends Activity
 		});
 
 		// initialize dp sdk
-		try
-		{
+		try {
 			Context applContext = getApplicationContext();
 			readers = Globals.getInstance().getReaders(applContext);
-		} catch (UareUException e) 
-		{
+		} catch (UareUException e) {
 			onBackPressed();
 		}
 
 		int nSize = readers.size();
-		if (nSize > 1)
-		{
+
+		if (nSize > 1) {
 			String[] values = null;
 			values = new String[nSize];
-			for (int nCount = 0; nCount < nSize; nCount++)
-			{
+			for (int nCount = 0; nCount < nSize; nCount++) 	{
 				values[nCount] = readers.get(nCount).GetDescription().name;
 			}
 
@@ -85,39 +80,30 @@ public class GetReaderActivity extends Activity
 					finish();
 				}
 			});
-		}
-		else
-		{
+		} else {
 			Intent i = new Intent();
 			i.putExtra("device_name", (nSize == 0 ? "" : readers.get(0).GetDescription().name));
 
 			if (getIntent() != null &&
 				getIntent().getAction() != null &&
-				getIntent().getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED))
-			{
-				InitDevice(0);
-			}
+				getIntent().getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+            ) InitDevice(0);
 			setResult(Activity.RESULT_OK, i);
 			finish();
 		}
 	}
 
 	private void InitDevice(int position) {
-		try
-        {
+		try {
             readers.get(position).Open(Reader.Priority.COOPERATIVE);
             readers.get(position).Close();
-        }
-
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 	}
 
 	@Override
-	public void onBackPressed()
-	{
+	public void onBackPressed() {
 		Intent i = new Intent();
 		i.putExtra("device_name", m_deviceName);
 		setResult(Activity.RESULT_OK, i);
@@ -125,9 +111,9 @@ public class GetReaderActivity extends Activity
 	}
 
 	@Override
-	public void onConfigurationChanged(Configuration newConfig)
-	{
+	public void onConfigurationChanged(Configuration newConfig) {
 		onCreate(savedInstanceState);
 		super.onConfigurationChanged(newConfig);
 	}
+
 }

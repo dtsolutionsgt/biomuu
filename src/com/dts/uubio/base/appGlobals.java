@@ -8,8 +8,7 @@ import java.util.ArrayList;
 public class appGlobals extends Application {
 
     public String devicename,method,param1,param2,param3;
-    public boolean modoid,sdkready;
+    public boolean modoid,sdkready,idle=false;
     public ArrayList<Fmd> fprints = new ArrayList<Fmd>();
-
 
 }

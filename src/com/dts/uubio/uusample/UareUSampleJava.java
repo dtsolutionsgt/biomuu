@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 public class UareUSampleJava extends PBase {
+
 	private final int GENERAL_ACTIVITY_RESULT = 1;
 
 	private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
@@ -125,8 +126,7 @@ public class UareUSampleJava extends PBase {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (data == null) {
-            reinitReader();
-            return;
+            reinitReader();return;
         }
 
         Globals.ClearLastBitmap();
@@ -164,13 +164,11 @@ public class UareUSampleJava extends PBase {
                 if (pendingbundle) {
                     pendingbundle=false;
 
-                    toast("Bundle recall");
-
                     if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
                     if (gl.method.equalsIgnoreCase("2")) launchSearch();
 
-                    pendingbundle=!gl.sdkready;
-                    if (pendingbundle) reinitReader();
+                    //pendingbundle=!gl.sdkready;
+                    //if (pendingbundle) reinitReader();
                 }
 
                 break;
@@ -207,6 +205,10 @@ public class UareUSampleJava extends PBase {
         startActivity(new Intent(this,com.dts.uubio.uu.Compare.class));
     }
 
+    public void suspend(View view) {
+        moveTaskToBack(true);
+    }
+
     public void doSendResult(View view) {
         Intent i = new Intent();
         i.putExtra("device_name", m_deviceName);
@@ -236,6 +238,11 @@ public class UareUSampleJava extends PBase {
 
         } catch (Exception e) {
             gl.method="";gl.param1="";gl.param2="";gl.param3="";
+
+            if (!gl.idle) {
+                gl.idle=true;
+                reinitReader();
+            }
         }
 
      }

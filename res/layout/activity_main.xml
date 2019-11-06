@@ -146,17 +146,19 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:text="DTSolutions S.A. (C) 2019 , Guatemala" />
+        android:text="DTSolutions S.A. (C) 2019 , Guatemala  - version 1.5 , 06-Nov-2019" />
 
     <Button
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="340dp"
-        android:layout_marginBottom="275dp"
-        android:onClick="dofillfp"
-        android:text="Button"
-        android:visibility="invisible" />
+        android:layout_marginStart="229dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/imageView4"
+        android:onClick="suspend"
+        android:text="Cerrar"
+        android:visibility="visible" />
+
 </RelativeLayout>
