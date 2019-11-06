@@ -8,24 +8,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e024565-c2d1-4807-8076-4cb4c226ec99" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/drawable/uaublank.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout-land/activity_engine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout-land/activity_engine.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uusample/GetReaderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uusample/GetReaderActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" afterDir="false" />
-    </list>
+    <list default="true" id="9e024565-c2d1-4807-8076-4cb4c226ec99" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +18,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.1.168:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="52009f7b60775519" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -53,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="208" column="29" selection-start-line="208" selection-start-column="29" selection-end-line="208" selection-end-column="29" />
+            <state relative-caret-position="143">
+              <caret line="210" lean-forward="true" selection-start-line="210" selection-end-line="210" />
               <folding>
                 <element signature="e#6500#6501#0" expanded="true" />
                 <element signature="e#6536#6537#0" expanded="true" />
@@ -189,8 +172,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="89" />
-    <option name="y" value="28" />
+    <option name="x" value="79" />
+    <option name="y" value="23" />
     <option name="width" value="1232" />
     <option name="height" value="685" />
   </component>
@@ -517,12 +500,18 @@
       <option name="project" value="LOCAL" />
       <updated>1572900133767</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="jp commit">
+      <created>1573060972633</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573060972633</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="89" y="28" width="1232" height="685" extended-state="0" />
-    <editor active="true" />
+    <frame x="79" y="23" width="1232" height="685" extended-state="1" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18856655" />
@@ -957,8 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="208" column="29" selection-start-line="208" selection-start-column="29" selection-end-line="208" selection-end-column="29" />
+        <state relative-caret-position="143">
+          <caret line="210" lean-forward="true" selection-start-line="210" selection-end-line="210" />
           <folding>
             <element signature="e#6500#6501#0" expanded="true" />
             <element signature="e#6536#6537#0" expanded="true" />
