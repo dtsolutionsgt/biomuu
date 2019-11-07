@@ -479,7 +479,7 @@ public class EnrollmentActivity extends PBase {
 
             match(fn);
             if (match) {
-                toast("Encontrado : "+fn);
+                toast("Huella encontrada.");
                 completeMatch();return;
             }
         }
