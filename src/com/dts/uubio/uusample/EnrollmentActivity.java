@@ -79,7 +79,8 @@ public class EnrollmentActivity extends PBase {
     final int REQUEST_CODE=101;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_engine);
 
@@ -101,7 +102,8 @@ public class EnrollmentActivity extends PBase {
         fpfold= Environment.getExternalStorageDirectory()+ "/fpuaudata/";
         fname=Environment.getExternalStorageDirectory()+ "/fpuaudata/"+gl.param1+".uud";
 
-        if (!initializeSDK()) {
+        if (!initializeSDK())
+        {
             m_deviceName = "";
             callflag=true;
             onBackPressed();
@@ -110,9 +112,14 @@ public class EnrollmentActivity extends PBase {
 
         getFPList();
 
-        if (modo) {
+        m_bitmap= null;
+        UpdateGUI();
+
+        if (modo)
+        {
             beginIdentification();
-        } else {
+        } else
+        {
             beginEnrollment();
         }
 
@@ -120,7 +127,8 @@ public class EnrollmentActivity extends PBase {
 
     //region Events
 
-    public void onBackClick(View v) {
+    public void onBackClick(View v)
+    {
         callflag=true;
         moveTaskToBack(true);
         onBackPressed();
@@ -145,7 +153,7 @@ public class EnrollmentActivity extends PBase {
                         try {
                             m_enrollment_fmd = m_engine.CreateEnrollmentFmd(Fmd.Format.ANSI_378_2004, enrollThread);
                             if (m_success = (m_enrollment_fmd != null)) {
-                                    m_current_fmds_count = 0;	// reset count on success
+                                   // m_current_fmds_count = 0;	// reset count on success
                             }
                         } catch (Exception e) {
                             m_current_fmds_count = 0;
@@ -229,12 +237,14 @@ public class EnrollmentActivity extends PBase {
 
     }
 
-    private void initializeActivity() {
+    private void initializeActivity()
+    {
 
-        if (gl.modoid) {
+        if (gl.modoid)
+        {
             m_title.setText("IDENTIFICACIÓN");
         } else {
-            m_title.setText("Enrollamiento : "+ gl.param2);
+            m_title.setText("Enrolamiento : "+ gl.param2);
         }
 
         m_textString = "Coloque el dedo al lector";
@@ -250,13 +260,30 @@ public class EnrollmentActivity extends PBase {
         Globals.DefaultImageProcessing = Reader.ImageProcessing.IMG_PROC_DEFAULT;
     }
 
-    private boolean initializeSDK() {
-        try {
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        try
+        {
+            m_imgView.setImageBitmap(null);
+        }catch (Exception e)
+        {
+         Log.e("Error mae",e.getMessage());
+        }
+    }
+
+    private boolean initializeSDK()
+    {
+        try
+        {
             Context applContext = getApplicationContext();
-            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+            m_reader = Globals.getInstance().getReader(gl.devicename, applContext);
             m_reader.Open(Priority.COOPERATIVE);
             m_DPI = Globals.GetFirstDPI(m_reader);
             m_engine = UareUGlobal.GetEngine();
+
             gl.sdkready=true;
             return true;
         } catch (Exception e) {
@@ -270,27 +297,33 @@ public class EnrollmentActivity extends PBase {
 
     //region Enrollment
 
-    public class EnrollmentCallback extends Thread 	implements Engine.EnrollmentCallback {
+    public class EnrollmentCallback extends Thread 	implements Engine.EnrollmentCallback
+    {
         public int m_current_index = 0;
 
         private Reader m_reader = null;
         private Engine m_engine = null;
 
-        public EnrollmentCallback(Reader reader, Engine engine) {
+        public EnrollmentCallback(Reader reader, Engine engine)
+        {
             m_reader = reader;
             m_engine = engine;
         }
 
         // callback function is called by dp sdk to retrieve fmds until a null is returned
         @Override
-        public PreEnrollmentFmd GetFmd(Format format) {
+        public PreEnrollmentFmd GetFmd(Format format)
+        {
 
             PreEnrollmentFmd result = null;
 
-            while (!m_reset) {
+            while (!m_reset)
+            {
 
-                try	{
-                    m_text_conclusionString = "LISTO";
+                try
+                {
+
+                    m_text_conclusionString = "LISTO PARA LECTURA " + (m_current_fmds_count + 1);
 
                     runOnUiThread(new Runnable(){
                         @Override public void run()  {
@@ -299,7 +332,9 @@ public class EnrollmentActivity extends PBase {
                     });
 
                     cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
-                } catch (Exception e) {
+
+                } catch (Exception e)
+                {
                     callflag=true;
                     onBackPressed();
                 }
@@ -314,7 +349,9 @@ public class EnrollmentActivity extends PBase {
                 // an error occurred
                 if (cap_result == null || cap_result.image == null) continue;
 
-                try {
+                try
+                {
+
                     m_enginError = "";
                     // save bitmap image locally
                     m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
@@ -327,39 +364,51 @@ public class EnrollmentActivity extends PBase {
                     m_current_fmds_count++;
 
                     result =  prefmd;
+
                     break;
-                } catch (Exception e) {
+
+                } catch (Exception e)
+                {
                     m_enginError = e.toString();
                 }
             }
 
             m_text_conclusionString = Globals.QualityToString(cap_result);
 
-            if(cap_result.quality==Reader.CaptureQuality.GOOD) {
+            if(cap_result.quality==Reader.CaptureQuality.GOOD)
+            {
                 m_text_conclusionString="Lectura "+m_current_fmds_count;
             }
 
-            if(!m_enginError.isEmpty()) {
+            if(!m_enginError.isEmpty())
+            {
                 m_text_conclusionString = "Error de captura : " + m_enginError;
             }
 
-            if (m_enrollment_fmd != null || m_current_fmds_count == 0) {
-                if (!m_first) {
-                    m_text_conclusionString = m_success ? "Enrollamiento completo ": "Enrollamiento falló. Intente de nuevo";
+            if (m_enrollment_fmd != null || m_current_fmds_count == 0)
+            {
+                if (!m_first)
+                {
+                    m_text_conclusionString = m_success ? "Enrolamiento completo ": "Enrolamiento falló. Intente de nuevo";
                 }
 
-                if (m_success) {
+                if (m_success)
+                {
                     m_textString = "Completo";
                     exitflag = true;
                     m_reset = true;
+                    gl.param1 = "";
+                    gl.param2 = "";
+                    gl.param3 = "";
                 } else {
-                    m_textString = "Coloque el dedo al lector";
+                    m_textString = "Coloque dedo en lector";
                     m_enrollment_fmd = null;
                 }
-            } else {
+            } else
+            {
                 m_first = false;
                 m_success = false;
-                m_textString = "Coloque el MISMO dedo al lector";
+                m_textString = "Coloque el MISMO dedo en lector";
             }
 
             runOnUiThread(new Runnable(){
@@ -372,11 +421,13 @@ public class EnrollmentActivity extends PBase {
         }
     }
 
-    private void completeEnrollment() {
+    private void completeEnrollment()
+    {
 
         try {
 
-            if (!fprintExists()) {
+            if (!fprintExists())
+            {
 
                 File file = new File(fname);
                 if (file.exists()) file.delete();
@@ -386,7 +437,12 @@ public class EnrollmentActivity extends PBase {
 
                 signEnroll();
 
+                gl.param1 = "";
+                gl.param2 = "";
+                gl.param3 = "";
+
                 SystemClock.sleep(1200);
+
             } else {
                 runOnUiThread(new Runnable() {
                     @Override
@@ -402,14 +458,17 @@ public class EnrollmentActivity extends PBase {
             callflag=true;
             onBackPressed();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             m_text.setText("Error: ");
             m_text_conclusion.setText(e.toString());
         }
     }
 
-    private void signEnroll() {
-        try {
+    private void signEnroll()
+    {
+        try
+        {
             File file = new File(Environment.getExternalStorageDirectory() + "/biomuu_erl.txt");
             FileOutputStream stream = new FileOutputStream(file);
             stream.write(gl.param1.getBytes());
@@ -419,33 +478,43 @@ public class EnrollmentActivity extends PBase {
         }
     }
 
-    private boolean fprintExists() {
+    private boolean fprintExists()
+    {
+
         match=false;spos=-1;
         scode="";matchcode="";
 
         fmd=prefmd.fmd;
 
-        for (int i = 0; i <fprint.size(); i++) {
+        for (int i = 0; i <fprint.size(); i++)
+        {
 
-            try {
+            try
+            {
+
                 fn=fprint.get(i); fnn=fn.substring(0,fn.length()-4);
 
-                m_textString="Validando huella ...";
+                m_textString="Verificando existencia de huella...";
                 m_text_conclusionString="";
                 m_textprog=(i+1)+" / "+fprint.size();
 
-                runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         UpdateGUI();
                     }
                 });
 
-                if (!fn.equalsIgnoreCase(gl.param1+".uud")) {
+                if (!fn.equalsIgnoreCase(gl.param1+".uud"))
+                {
                     match(fn);
                     if (match) return true;
                 }
-            } catch (Exception e) {
+
+            } catch (Exception e)
+            {
                 String aa=e.getMessage();
             }
 
@@ -457,13 +526,15 @@ public class EnrollmentActivity extends PBase {
 
     //region Identification
 
-    private void Compare() {
+    private void Compare()
+    {
         String fn;
 
         match=false;spos=-1;
         scode="";matchcode="";
 
-        for (int i = 0; i <fprint.size(); i++) {
+        for (int i = 0; i <fprint.size(); i++)
+        {
 
             fn=fprint.get(i);
 
@@ -478,7 +549,9 @@ public class EnrollmentActivity extends PBase {
             });
 
             match(fn);
-            if (match) {
+
+            if (match)
+            {
                 toast("Huella encontrada.");
                 completeMatch();return;
             }
@@ -492,14 +565,17 @@ public class EnrollmentActivity extends PBase {
         onBackPressed();
     }
 
-    private boolean match(String iid) {
+    private boolean match(String iid)
+    {
         Fmd fmdt=null;
         File file2;
         int size2,m_score = -1;
+
         byte[] fmtByte2;
         boolean rslt=false;
 
         try {
+
             file2 = new File(fpfold + iid);
             size2 = (int) file2.length();
             fmtByte2 = new byte[size2];
@@ -512,7 +588,9 @@ public class EnrollmentActivity extends PBase {
 
             m_score = m_engine.Compare(fmd, 0, fmdt, 0);
             if (m_score < (0x7FFFFFFF / 100000)) rslt=true; else rslt=false;
-        } catch (Exception e) {
+
+        } catch (Exception e)
+        {
             msgbox(e.getMessage());rslt=false;
         }
 
@@ -523,7 +601,8 @@ public class EnrollmentActivity extends PBase {
         return rslt;
     }
 
-    private void completeMatch() {
+    private void completeMatch()
+    {
         String cod;
 
         try {
@@ -558,7 +637,8 @@ public class EnrollmentActivity extends PBase {
 
     //region Aux
 
-    public void UpdateGUI() {
+    public void UpdateGUI()
+    {
         m_imgView.setVisibility(View.VISIBLE);
         m_imgView.setImageBitmap(m_bitmap);
         m_imgView.invalidate();
@@ -568,15 +648,27 @@ public class EnrollmentActivity extends PBase {
         m_text_prog.setText(m_textprog);
     }
 
-    private void getFPList() {
+    public void UpdateTexto()
+    {
+        m_text_conclusion.setText(m_text_conclusionString);
+        m_text.setText(m_textString);
+        m_text_prog.setText(m_textprog);
+    }
+
+    private void getFPList()
+    {
         String fn;
         ss="";
 
-        try {
+        try
+        {
             File folder = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata");
             File[] filesInFolder = folder.listFiles();
-            for (File file : filesInFolder) {
-                if (!file.isDirectory()) {
+
+            for (File file : filesInFolder)
+            {
+                if (!file.isDirectory())
+                {
                     fn=new String(file.getName());
                     fprint.add(fn);ss+=fn+"\n";
                 }
@@ -606,7 +698,8 @@ public class EnrollmentActivity extends PBase {
     }
 
     @Override
-    public void onBackPressed() 	{
+    public void onBackPressed()
+    {
 
         if (!callflag) return;
 
@@ -620,7 +713,6 @@ public class EnrollmentActivity extends PBase {
         Intent i = new Intent();
         i.putExtra("device_name", m_deviceName);
         setResult(Activity.RESULT_OK, i);
-
 
         finish();
     }

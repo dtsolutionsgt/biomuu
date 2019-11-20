@@ -105,7 +105,6 @@ public class Globals
 		m_lastBitmap = bitmap;
 		return bitmap;
 	}
-
 	public static final String QualityToString(Reader.CaptureResult result)
 	{
 		if(result == null) {

@@ -267,7 +267,7 @@ public class CaptureFingerprintActivity extends Activity implements OnItemSelect
 							);
 
 							// log NFIQ score
-							Log.i("UareUSampleJava", "capture result nfiq score: " + nfiqScore);
+							Log.d("UareUSampleJava", "capture result nfiq score: " + nfiqScore);
 
 							// update ui string
 							m_text_conclusionString = Globals.QualityToString(cap_result);

@@ -35,8 +35,14 @@ import android.hardware.usb.UsbManager;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class UareUSampleJava extends PBase {
 
@@ -52,95 +58,110 @@ public class UareUSampleJava extends PBase {
 	private String m_deviceName = "";
 	private String m_versionName = "";
 	private final String tag = "UareUSampleJava";
-
+    private boolean inicio_enrolment= false;
 	private Reader m_reader;
 	private boolean pendingbundle=false,pendingreader=true;
+    private boolean OnCreateFirst = false;
 
     //region Activity Events
 
     @Override
-	public void onCreate(Bundle savedInstanceState)	{
-		//enable tracing
-		System.setProperty("DPTRACE_ON", "1");
-		//System.setProperty("DPTRACE_VERBOSITY", "10");
-		
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+	public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		super.InitBase();
+        super.InitBase();
 
-		gl.sdkready=false;
+        gl.sdkready = false;
 
-		m_getReader = (Button) findViewById(R.id.get_reader);
-		m_captureFingerprint = (Button) findViewById(R.id.capture_fingerprint);
-		m_enrollment = (Button) findViewById(R.id.enrollment);
-		m_verification = (Button) findViewById(R.id.verification);
-		m_selectedDevice = (TextView) findViewById(R.id.selected_device);
+        m_getReader = (Button) findViewById(R.id.get_reader);
+        m_captureFingerprint = (Button) findViewById(R.id.capture_fingerprint);
+        m_enrollment = (Button) findViewById(R.id.enrollment);
+        m_verification = (Button) findViewById(R.id.verification);
+        m_selectedDevice = (TextView) findViewById(R.id.selected_device);
 
-		setButtonsEnabled(false);
+        setButtonsEnabled(false);
 
-		m_getReader.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+        m_getReader.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 launchGetReader();
-			}
-		});
+            }
+        });
 
-		m_captureFingerprint.setOnClickListener(new View.OnClickListener()	{
-			public void onClick(View v)	{
-			    msgAskRestart("Reiniciar la aplicación");
-			}
-		});
+        m_captureFingerprint.setOnClickListener(
+                new View.OnClickListener() {
+            public void onClick(View v) {
+                msgAskRestart("Reiniciar la aplicación");
+            }
+        });
 
-		m_enrollment.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				launchEnrollment();
-			}
-		});
+        m_enrollment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launchEnrollment();
+            }
+        });
 
-		m_verification.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v)	{
-	             launchSearch();
-			}
-		});
+        m_verification.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launchSearch();
+            }
+        });
 
-		try	{
-			m_versionName = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
-		} catch (PackageManager.NameNotFoundException e) {
-			Log.e(tag, e.getMessage());
-		}
+        try
+        {
+            m_versionName = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(tag, e.getMessage());
+        }
 
-		ActionBar ab = getActionBar();
-		ab.setTitle("DTSolutions Biometrico DPUaU");
+        ActionBar ab = getActionBar();
+        ab.setTitle("DTSolutions Biometrico DPUaU");
 
-         try {
+        try
+        {
             File directory = new File(Environment.getExternalStorageDirectory() + "/fpuaudata");
             directory.mkdirs();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
-        Bundle bundle = getIntent().getExtras();
-        processBundle(bundle);
+        //#EJC20191119
+        Leer_Parametros_Desde_Archivo();
+        //#EJC20191119
+        processBundle();
+
+        OnCreateFirst= true;
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (data == null) {
-            reinitReader();return;
+        if (data == null)
+        {
+            reinitReader();
+            return;
         }
 
         Globals.ClearLastBitmap();
+
         m_deviceName = (String) data.getExtras().get("device_name");
         gl.devicename=m_deviceName;
 
-        switch (requestCode)   {
+        switch (requestCode)
+        {
             case GENERAL_ACTIVITY_RESULT:
 
-                if((m_deviceName != null) && !m_deviceName.isEmpty()) {
+                if((m_deviceName != null) && !m_deviceName.isEmpty())
+                {
+
                     m_selectedDevice.setText("Device: " + m_deviceName);
                     gl.devicename=m_deviceName;
 
                     try {
+
                         Context applContext = getApplicationContext();
                         m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
 
@@ -161,11 +182,12 @@ public class UareUSampleJava extends PBase {
 
                 pendingreader=false;
 
-                if (pendingbundle) {
+                if (pendingbundle)
+                {
                     pendingbundle=false;
 
-                    if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
-                    if (gl.method.equalsIgnoreCase("2")) launchSearch();
+                   if (gl.method != null) if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
+                   if (gl.method != null) if (gl.method.equalsIgnoreCase("2")) launchSearch();
 
                     //pendingbundle=!gl.sdkready;
                     //if (pendingbundle) reinitReader();
@@ -205,7 +227,9 @@ public class UareUSampleJava extends PBase {
         startActivity(new Intent(this,com.dts.uubio.uu.Compare.class));
     }
 
-    public void suspend(View view) {
+
+    public void suspend(View view)
+    {
         moveTaskToBack(true);
     }
 
@@ -247,7 +271,30 @@ public class UareUSampleJava extends PBase {
 
      }
 
-    protected void launchGetReader() {
+    private void processBundle()
+    {
+        try {
+
+            pendingbundle=true;
+
+            if (gl.method!=null) if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
+            if (gl.method!=null) if (gl.method.equalsIgnoreCase("2")) launchSearch();
+
+        } catch (Exception e)
+        {
+            gl.method="";gl.param1="";gl.param2="";gl.param3="";
+
+            if (!gl.idle)
+            {
+                gl.idle=true;
+                reinitReader();
+            }
+        }
+
+    }
+
+    protected void launchGetReader()
+    {
 		Intent i = new Intent(UareUSampleJava.this, GetReaderActivity.class);
 		i.putExtra("device_name", m_deviceName);
 		startActivityForResult(i, 1);
@@ -255,13 +302,17 @@ public class UareUSampleJava extends PBase {
 
 	protected void launchEnrollment() 	{
 
-        if (gl.param1.isEmpty()) {
+        if (gl.param1.isEmpty())
+        {
             displayNoID();
-        } else {
+            inicio_enrolment = false;
+        } else
+        {
             gl.modoid=false;
             Intent i = new Intent(UareUSampleJava.this, EnrollmentActivity.class);
-            i.putExtra("device_name", m_deviceName);
+            i.putExtra("device_name", gl.devicename);
             startActivity(i);
+            inicio_enrolment = true;
         }
  	}
 
@@ -301,10 +352,12 @@ public class UareUSampleJava extends PBase {
 		}
 	}
 
-    private void reinitReader() {
+    private void reinitReader()
+    {
         pendingreader=true;
 
-        try {
+        try
+        {
             m_selectedDevice.setText("Dispositivo : (Sin lector)");
             setButtonsEnabled(false);
         } catch (Exception e) {
@@ -318,14 +371,15 @@ public class UareUSampleJava extends PBase {
     private void displayNoID() {
         setButtonsEnabled(false);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Identificacion incorrecta");
-        alertDialogBuilder.setMessage("No se puede enrollar sin identificación de persona.").setCancelable(false).setPositiveButton("Ok",
+        alertDialogBuilder.setTitle("Identificación incorrecta");
+        alertDialogBuilder.setMessage("No se puede enrolar sin identificación de persona.").setCancelable(false).setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()  {
                     public void onClick(DialogInterface dialog,int id) {}
                 });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
-        if(!isFinishing()) {
+        if(!isFinishing())
+        {
             alertDialog.show();
         }
     }
@@ -405,16 +459,84 @@ public class UareUSampleJava extends PBase {
 
     //region Activity Events
 
+    void Leer_Parametros_Desde_Archivo()
+    {
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/user.txt");
+        BufferedReader br = null;
+
+        if (file.exists())
+        {
+
+            try
+            {
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+
+            try {
+
+                String line;
+
+                int i=0;
+
+                while (true)
+                {
+                    try
+                    {
+                        if (!((line = br.readLine()) != null)) break;
+
+                        if (i==0) gl.method=line;
+                        if (i==2) gl.param1=line;
+                        if (i==4) gl.param2=line;
+
+                        i++;
+
+                    } catch (IOException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }finally
+            {
+                try
+                {
+                    br.close();
+                    file.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
 
-        try {
-            if (gl.devicename.isEmpty()) {
+        try
+        {
+
+            if (gl.devicename.isEmpty())
+            {
                 setButtonsEnabled(false);
-            } else {
+            } else
+            {
                 setButtonsEnabled(true);
             }
+
+            Leer_Parametros_Desde_Archivo();
+            processBundle();
+
         } catch (Exception e) {
             setButtonsEnabled(false);
         }
@@ -426,7 +548,8 @@ public class UareUSampleJava extends PBase {
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         // reset you to initial state when activity stops
         m_selectedDevice.setText("Dispositivo: (No Reader Selected)");
         setButtonsEnabled(false);

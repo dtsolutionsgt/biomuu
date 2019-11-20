@@ -86,6 +86,7 @@ public class IdentificationActivity extends Activity
 
 		m_text = (TextView) findViewById(R.id.text);
 		m_text_conclusion = (TextView) findViewById(R.id.text_conclusion);
+
 		UpdateGUI();
 
 		Globals.DefaultImageProcessing = Reader.ImageProcessing.IMG_PROC_DEFAULT;

@@ -238,8 +238,6 @@ public class SearchActivity extends PBase {
 
             m_textString = "Coloque el dedo al lector";
 
-
-
             runOnUiThread(new Runnable(){
                 @Override public void run()  {
                     UpdateGUI();

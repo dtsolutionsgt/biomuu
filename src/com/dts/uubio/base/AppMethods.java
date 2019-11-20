@@ -7,12 +7,14 @@ import android.view.Gravity;
 import android.widget.Toast;
 import com.dts.uubio.uusample.R;
 
-public class AppMethods {
+public class AppMethods
+{
 
 	private Context cont;
 	private appGlobals gl;
 
-	public AppMethods(Context context, appGlobals global ) {
+	public AppMethods(Context context, appGlobals global )
+    {
 		cont=context;
 		gl=global;
     }
