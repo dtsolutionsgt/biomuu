@@ -79,8 +79,7 @@ public class EnrollmentActivity extends PBase {
     final int REQUEST_CODE=101;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_engine);
 
@@ -421,13 +420,11 @@ public class EnrollmentActivity extends PBase {
         }
     }
 
-    private void completeEnrollment()
-    {
+    private void completeEnrollment()  {
 
         try {
 
-            if (!fprintExists())
-            {
+            if (!fprintExists())  {
 
                 File file = new File(fname);
                 if (file.exists()) file.delete();
@@ -465,10 +462,8 @@ public class EnrollmentActivity extends PBase {
         }
     }
 
-    private void signEnroll()
-    {
-        try
-        {
+    private void signEnroll()  {
+        try  {
             File file = new File(Environment.getExternalStorageDirectory() + "/biomuu_erl.txt");
             FileOutputStream stream = new FileOutputStream(file);
             stream.write(gl.param1.getBytes());
@@ -478,19 +473,16 @@ public class EnrollmentActivity extends PBase {
         }
     }
 
-    private boolean fprintExists()
-    {
+    private boolean fprintExists()  {
 
         match=false;spos=-1;
         scode="";matchcode="";
 
         fmd=prefmd.fmd;
 
-        for (int i = 0; i <fprint.size(); i++)
-        {
+        for (int i = 0; i <fprint.size(); i++)  {
 
-            try
-            {
+            try {
 
                 fn=fprint.get(i); fnn=fn.substring(0,fn.length()-4);
 
@@ -526,20 +518,30 @@ public class EnrollmentActivity extends PBase {
 
     //region Identification
 
-    private void Compare()
-    {
+    private void Compare()  {
         String fn;
 
         match=false;spos=-1;
         scode="";matchcode="";
 
-        for (int i = 0; i <fprint.size(); i++)
-        {
+        m_text_conclusionString="Buscando huella ..";
+        m_textprog="";
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UpdateGUI();
+            }
+        });
+
+        for (int i = 0; i <fprint.size(); i++)  {
 
             fn=fprint.get(i);
 
-            m_text_conclusionString="";
+            m_text_conclusionString="Buscando huella ..";
             m_textprog=(i+1)+" / "+fprint.size();
+
+            SystemClock.sleep(500);
 
             runOnUiThread(new Runnable() {
                 @Override
@@ -550,14 +552,14 @@ public class EnrollmentActivity extends PBase {
 
             match(fn);
 
-            if (match)
-            {
+            if (match) {
                 toast("Huella encontrada.");
                 completeMatch();return;
             }
+
         }
 
-        toast("HUELLA NO ENCONTRADA");
+        toastbig("\n  HUELLA NO  \n\n ENCONTRADA \n");
 
         SystemClock.sleep(100);
         moveTaskToBack(true);
@@ -565,8 +567,7 @@ public class EnrollmentActivity extends PBase {
         onBackPressed();
     }
 
-    private boolean match(String iid)
-    {
+    private boolean match(String iid)     {
         Fmd fmdt=null;
         File file2;
         int size2,m_score = -1;
@@ -637,8 +638,7 @@ public class EnrollmentActivity extends PBase {
 
     //region Aux
 
-    public void UpdateGUI()
-    {
+    public void UpdateGUI()  {
         m_imgView.setVisibility(View.VISIBLE);
         m_imgView.setImageBitmap(m_bitmap);
         m_imgView.invalidate();
@@ -648,15 +648,13 @@ public class EnrollmentActivity extends PBase {
         m_text_prog.setText(m_textprog);
     }
 
-    public void UpdateTexto()
-    {
+    public void UpdateTexto()  {
         m_text_conclusion.setText(m_text_conclusionString);
         m_text.setText(m_textString);
         m_text_prog.setText(m_textprog);
     }
 
-    private void getFPList()
-    {
+    private void getFPList()  {
         String fn;
         ss="";
 

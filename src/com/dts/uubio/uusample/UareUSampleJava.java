@@ -66,8 +66,7 @@ public class UareUSampleJava extends PBase {
     //region Activity Events
 
     @Override
-	public void onCreate(Bundle savedInstanceState)
-    {
+	public void onCreate(Bundle savedInstanceState)     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -83,16 +82,13 @@ public class UareUSampleJava extends PBase {
 
         setButtonsEnabled(false);
 
-        m_getReader.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        m_getReader.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 launchGetReader();
             }
         });
 
-        m_captureFingerprint.setOnClickListener(
-                new View.OnClickListener() {
+        m_captureFingerprint.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
                 msgAskRestart("Reiniciar la aplicación");
             }
@@ -110,8 +106,7 @@ public class UareUSampleJava extends PBase {
             }
         });
 
-        try
-        {
+        try  {
             m_versionName = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(tag, e.getMessage());
@@ -120,8 +115,7 @@ public class UareUSampleJava extends PBase {
         ActionBar ab = getActionBar();
         ab.setTitle("DTSolutions Biometrico DPUaU");
 
-        try
-        {
+        try  {
             File directory = new File(Environment.getExternalStorageDirectory() + "/fpuaudata");
             directory.mkdirs();
         } catch (Exception e) {
@@ -130,7 +124,7 @@ public class UareUSampleJava extends PBase {
         //#EJC20191119
         Leer_Parametros_Desde_Archivo();
         //#EJC20191119
-        processBundle();
+        //processBundle();
 
         OnCreateFirst= true;
 
@@ -271,21 +265,17 @@ public class UareUSampleJava extends PBase {
 
      }
 
-    private void processBundle()
-    {
+    private void processBundle()  {
         try {
-
             pendingbundle=true;
 
             if (gl.method!=null) if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
             if (gl.method!=null) if (gl.method.equalsIgnoreCase("2")) launchSearch();
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             gl.method="";gl.param1="";gl.param2="";gl.param3="";
 
-            if (!gl.idle)
-            {
+            if (!gl.idle) {
                 gl.idle=true;
                 reinitReader();
             }
@@ -293,8 +283,56 @@ public class UareUSampleJava extends PBase {
 
     }
 
-    protected void launchGetReader()
-    {
+    private void Leer_Parametros_Desde_Archivo()  {
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/user.txt");
+        BufferedReader br = null;
+
+        if (file.exists()) {
+            try  {
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                String line;
+                int i=0;
+
+                while (true)  {
+                    try   {
+                        if (!((line = br.readLine()) != null)) {
+                            processBundle();
+                            break;
+                        }
+
+                        if (i==0) gl.method=line;
+                        if (i==2) gl.param1=line;
+                        if (i==4) gl.param2=line;
+
+                        i++;
+
+                    } catch (IOException ex)  {
+                        ex.printStackTrace();
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally  {
+                try  {
+                    br.close();
+                    file.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+
+    protected void launchGetReader()  {
 		Intent i = new Intent(UareUSampleJava.this, GetReaderActivity.class);
 		i.putExtra("device_name", m_deviceName);
 		startActivityForResult(i, 1);
@@ -459,83 +497,21 @@ public class UareUSampleJava extends PBase {
 
     //region Activity Events
 
-    void Leer_Parametros_Desde_Archivo()
-    {
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/user.txt");
-        BufferedReader br = null;
-
-        if (file.exists())
-        {
-
-            try
-            {
-                br = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            }
-
-            try {
-
-                String line;
-
-                int i=0;
-
-                while (true)
-                {
-                    try
-                    {
-                        if (!((line = br.readLine()) != null)) break;
-
-                        if (i==0) gl.method=line;
-                        if (i==2) gl.param1=line;
-                        if (i==4) gl.param2=line;
-
-                        i++;
-
-                    } catch (IOException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }finally
-            {
-                try
-                {
-                    br.close();
-                    file.delete();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-
-    }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume()  {
         super.onResume();
 
-        try
-        {
-
-            if (gl.devicename.isEmpty())
-            {
+        try    {
+            if (gl.devicename.isEmpty()) {
                 setButtonsEnabled(false);
-            } else
-            {
+            } else  {
                 setButtonsEnabled(true);
             }
 
             Leer_Parametros_Desde_Archivo();
-            processBundle();
+            //processBundle();
 
         } catch (Exception e) {
             setButtonsEnabled(false);
@@ -548,8 +524,7 @@ public class UareUSampleJava extends PBase {
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         // reset you to initial state when activity stops
         m_selectedDevice.setText("Dispositivo: (No Reader Selected)");
         setButtonsEnabled(false);

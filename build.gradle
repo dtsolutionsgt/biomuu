@@ -12,8 +12,8 @@ buildscript {
     }
 }
 android {
-    compileSdkVersion 21
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 23
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -54,6 +54,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:21.+'
+    implementation 'com.android.support:appcompat-v7:23.+'
     implementation 'com.android.support.constraint:constraint-layout:+'
 }

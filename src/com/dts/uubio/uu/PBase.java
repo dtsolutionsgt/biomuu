@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.dts.uubio.base.DateUtils;
 import com.dts.uubio.base.MiscUtils;
@@ -55,24 +57,38 @@ public class PBase extends Activity {
     }
 
     protected void toast(String msg) {
-        toastcent(msg);
+        toastcent(msg,48);
+    }
+
+    protected void toastbig(String msg) {
+        toastcent(msg,72);
     }
 
     protected void toast(double val) {
-        toastcent(""+val);
+        toastcent(""+val,48);
     }
 
     protected void toastlong(String msg) {
         Toast toast= Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG);
+
+        RelativeLayout toastLayout = (RelativeLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toastTV.setTextSize(64);
+
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
-    protected void toastcent(String msg) {
+    protected void toastcent(String msg,int fsize) {
 
         if (mu.emptystr(msg)) return;
 
         Toast toast= Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT);
+
+        RelativeLayout toastLayout = (RelativeLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toastTV.setTextSize(fsize);
+
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }

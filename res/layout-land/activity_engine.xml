@@ -72,15 +72,19 @@
                 android:id="@+id/back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imageView6"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="0dp"
                 android:layout_toEndOf="@+id/imageView6"
                 android:onClick="onBackClick"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
                 android:text="REGRESAR"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <ImageView
                 android:id="@+id/imageView6"
