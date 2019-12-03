@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -33,16 +34,13 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 public class UareUSampleJava extends PBase {
 
@@ -50,7 +48,7 @@ public class UareUSampleJava extends PBase {
 
 	private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
 	
-	private TextView m_selectedDevice;
+	private TextView m_selectedDevice,huellas;
 	private Button m_getReader;
 	private Button m_captureFingerprint;
 	private Button m_enrollment;
@@ -79,6 +77,7 @@ public class UareUSampleJava extends PBase {
         m_enrollment = (Button) findViewById(R.id.enrollment);
         m_verification = (Button) findViewById(R.id.verification);
         m_selectedDevice = (TextView) findViewById(R.id.selected_device);
+        huellas = (TextView) findViewById(R.id.textView10);
 
         setButtonsEnabled(false);
 
@@ -113,7 +112,7 @@ public class UareUSampleJava extends PBase {
         }
 
         ActionBar ab = getActionBar();
-        ab.setTitle("DTSolutions Biometrico DPUaU");
+        ab.setTitle("DTSolutions Biometrico DP UaU");
 
         try  {
             File directory = new File(Environment.getExternalStorageDirectory() + "/fpuaudata");
@@ -121,12 +120,23 @@ public class UareUSampleJava extends PBase {
         } catch (Exception e) {
         }
 
-        //#EJC20191119
         Leer_Parametros_Desde_Archivo();
-        //#EJC20191119
-        //processBundle();
+        processBundle();
 
         OnCreateFirst= true;
+
+        if (gl.fprints.size()==0) {
+            Handler mtimer = new Handler();
+            Runnable mrunner=new Runnable() {
+                @Override
+                public void run() {
+                    dofillfp();
+                }
+            };
+            mtimer.postDelayed(mrunner,800);
+        }
+
+        huellas.setText("Huellas : "+gl.fprints.size());
 
     }
 
@@ -390,8 +400,7 @@ public class UareUSampleJava extends PBase {
 		}
 	}
 
-    private void reinitReader()
-    {
+    private void reinitReader() {
         pendingreader=true;
 
         try
@@ -474,17 +483,21 @@ public class UareUSampleJava extends PBase {
 
             m_engine = UareUGlobal.GetEngine();
 
-            file2 = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata/2329.uud");
-            size2 = (int) file2.length();
-            fmtByte2 = new byte[size2];
+            for (int i = 0; i <200; i++) {
 
-            BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
-            buf2.read(fmtByte2, 0, fmtByte2.length);
-            buf2.close();
+                file2 = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata/2329.uud");
+                size2 = (int) file2.length();
+                fmtByte2 = new byte[size2];
 
-            fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
+                BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
+                buf2.read(fmtByte2, 0, fmtByte2.length);
+                buf2.close();
 
-            gl.fprints.add(fmdt);
+                fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
+
+                gl.fprints.add(fmdt);
+
+            }
 
             toast("added :"+gl.fprints.size());
         } catch (Exception e) {

@@ -48,7 +48,7 @@ public class EnrollmentActivity extends PBase {
     private TextView m_text;
     private TextView m_text_conclusion;
     private TextView m_text_prog;
-    private TextView m_title;
+    private TextView m_title,m_fprints;
 	private Button m_back;
 
     private MiscUtils mu;
@@ -74,7 +74,7 @@ public class EnrollmentActivity extends PBase {
 
 	private String fname,fpfold;
     private boolean modo,match,callflag=false;
-    private int spos;
+    private int spos,matchid;
     private String scode,matchcode,ss,fn,fnn;
 
     final int REQUEST_CODE=101;
@@ -92,6 +92,7 @@ public class EnrollmentActivity extends PBase {
         m_text_conclusion = (TextView) findViewById(R.id.text_conclusion);
         m_text_prog = (TextView) findViewById(R.id.text_conclusion2);
         m_title = (TextView) findViewById(R.id.textView8);
+        m_fprints = (TextView) findViewById(R.id.textView11);
 
         mu=new MiscUtils(this);
 
@@ -112,6 +113,7 @@ public class EnrollmentActivity extends PBase {
         getFPList();
 
         m_bitmap= null;
+        m_fprints.setText("Huellas : "+gl.fprints.size());
         UpdateGUI();
 
         if (modo) {
@@ -497,6 +499,7 @@ public class EnrollmentActivity extends PBase {
 
     private void Compare()  {
         String fn;
+        int ii=0;
 
         match=false;spos=-1;
         scode="";matchcode="";
@@ -513,16 +516,33 @@ public class EnrollmentActivity extends PBase {
 
         Date time1 = Calendar.getInstance().getTime();
 
-        for (int i = 0; i <fprint.size(); i++)  {
+        matchid=-1;
+        for (int i = 0; i <gl.fprints.size(); i++)  {
+            matcharray(i);ii=i;
 
-            fn=fprint.get(i);
-            match(fn);
-
+            /*
             if (match) {
                 toast("Huella encontrada.");
                 completeMatch();return;
             }
+            */
         }
+
+        Date time2 = Calendar.getInstance().getTime();
+        long td=time2.getTime()-time1.getTime();
+        toastlong("Tiempo : "+mu.frmdecimal(((double)td)/1000,2)+" [seg] cant : "+ii);
+
+         /*
+        for (int i = 0; i < fprint.size(); i++) {
+            fn = fprint.get(i);
+            match(fn);
+            if (match) {
+                toast("Huella encontrada.");
+                completeMatch();
+                return;
+            }
+        }
+        */
 
         toastbig("\n  HUELLA NO  \n\n ENCONTRADA \n");
 
@@ -566,17 +586,13 @@ public class EnrollmentActivity extends PBase {
         return rslt;
     }
 
-    private boolean matcharray(String iid)     {
+    private boolean matcharray(int fpos)     {
         Fmd fmdt=null;
-        File file2;
-        int size2,m_score = -1;
+        int m_score = -1;
         boolean rslt=false;
 
         try {
-
-            //fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
-
-            fmdt=gl.fprints.get(0);
+            fmdt=gl.fprints.get(fpos);
 
             m_score = m_engine.Compare(fmd, 0, fmdt, 0);
             if (m_score < (0x7FFFFFFF / 100000)) rslt=true; else rslt=false;
@@ -585,8 +601,8 @@ public class EnrollmentActivity extends PBase {
             msgbox(e.getMessage());rslt=false;
         }
 
-        if (rslt) {
-            match=true;matchcode=iid;
+        if (rslt){
+            match=true;matchid=fpos;
         }
 
         return rslt;

@@ -98,6 +98,7 @@
                 android:background="@drawable/frame_rect_white"
                 android:padding="2dp"
                 android:src="@drawable/fpscan" />
+
         </RelativeLayout>
 
         <TextView
@@ -134,6 +135,17 @@
             android:padding="10dp"
             android:text="text"
             android:textSize="64sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
