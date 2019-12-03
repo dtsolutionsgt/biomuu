@@ -34,12 +34,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
 import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EnrollmentActivity extends PBase {
 
@@ -101,10 +102,9 @@ public class EnrollmentActivity extends PBase {
         fpfold= Environment.getExternalStorageDirectory()+ "/fpuaudata/";
         fname=Environment.getExternalStorageDirectory()+ "/fpuaudata/"+gl.param1+".uud";
 
-        if (!initializeSDK())
-        {
+        if (!initializeSDK()) {
             m_deviceName = "";
-            callflag=true;
+            callflag = true;
             onBackPressed();
             return;
         };
@@ -114,11 +114,9 @@ public class EnrollmentActivity extends PBase {
         m_bitmap= null;
         UpdateGUI();
 
-        if (modo)
-        {
+        if (modo) {
             beginIdentification();
-        } else
-        {
+        } else  {
             beginEnrollment();
         }
 
@@ -126,8 +124,7 @@ public class EnrollmentActivity extends PBase {
 
     //region Events
 
-    public void onBackClick(View v)
-    {
+    public void onBackClick(View v) {
         callflag=true;
         moveTaskToBack(true);
         onBackPressed();
@@ -236,11 +233,9 @@ public class EnrollmentActivity extends PBase {
 
     }
 
-    private void initializeActivity()
-    {
+    private void initializeActivity() {
 
-        if (gl.modoid)
-        {
+        if (gl.modoid) {
             m_title.setText("IDENTIFICACIÓN");
         } else {
             m_title.setText("Enrolamiento : "+ gl.param2);
@@ -260,23 +255,18 @@ public class EnrollmentActivity extends PBase {
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume()  {
         super.onResume();
 
-        try
-        {
+        try     {
             m_imgView.setImageBitmap(null);
-        }catch (Exception e)
-        {
+        }catch (Exception e) {
          Log.e("Error mae",e.getMessage());
         }
     }
 
-    private boolean initializeSDK()
-    {
-        try
-        {
+    private boolean initializeSDK()  {
+        try  {
             Context applContext = getApplicationContext();
             m_reader = Globals.getInstance().getReader(gl.devicename, applContext);
             m_reader.Open(Priority.COOPERATIVE);
@@ -296,31 +286,26 @@ public class EnrollmentActivity extends PBase {
 
     //region Enrollment
 
-    public class EnrollmentCallback extends Thread 	implements Engine.EnrollmentCallback
-    {
+    public class EnrollmentCallback extends Thread 	implements Engine.EnrollmentCallback   {
         public int m_current_index = 0;
 
         private Reader m_reader = null;
         private Engine m_engine = null;
 
-        public EnrollmentCallback(Reader reader, Engine engine)
-        {
+        public EnrollmentCallback(Reader reader, Engine engine) {
             m_reader = reader;
             m_engine = engine;
         }
 
         // callback function is called by dp sdk to retrieve fmds until a null is returned
         @Override
-        public PreEnrollmentFmd GetFmd(Format format)
-        {
+        public PreEnrollmentFmd GetFmd(Format format) {
 
             PreEnrollmentFmd result = null;
 
-            while (!m_reset)
-            {
+            while (!m_reset) {
 
-                try
-                {
+                try   {
 
                     m_text_conclusionString = "LISTO PARA LECTURA " + (m_current_fmds_count + 1);
 
@@ -332,8 +317,7 @@ public class EnrollmentActivity extends PBase {
 
                     cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
 
-                } catch (Exception e)
-                {
+                } catch (Exception e){
                     callflag=true;
                     onBackPressed();
                 }
@@ -348,8 +332,7 @@ public class EnrollmentActivity extends PBase {
                 // an error occurred
                 if (cap_result == null || cap_result.image == null) continue;
 
-                try
-                {
+                try  {
 
                     m_enginError = "";
                     // save bitmap image locally
@@ -366,26 +349,22 @@ public class EnrollmentActivity extends PBase {
 
                     break;
 
-                } catch (Exception e)
-                {
+                } catch (Exception e)  {
                     m_enginError = e.toString();
                 }
             }
 
             m_text_conclusionString = Globals.QualityToString(cap_result);
 
-            if(cap_result.quality==Reader.CaptureQuality.GOOD)
-            {
+            if(cap_result.quality==Reader.CaptureQuality.GOOD) {
                 m_text_conclusionString="Lectura "+m_current_fmds_count;
             }
 
-            if(!m_enginError.isEmpty())
-            {
+            if(!m_enginError.isEmpty()) {
                 m_text_conclusionString = "Error de captura : " + m_enginError;
             }
 
-            if (m_enrollment_fmd != null || m_current_fmds_count == 0)
-            {
+            if (m_enrollment_fmd != null || m_current_fmds_count == 0) {
                 if (!m_first)
                 {
                     m_text_conclusionString = m_success ? "Enrolamiento completo ": "Enrolamiento falló. Intente de nuevo";
@@ -403,8 +382,7 @@ public class EnrollmentActivity extends PBase {
                     m_textString = "Coloque dedo en lector";
                     m_enrollment_fmd = null;
                 }
-            } else
-            {
+            } else  {
                 m_first = false;
                 m_success = false;
                 m_textString = "Coloque el MISMO dedo en lector";
@@ -499,8 +477,7 @@ public class EnrollmentActivity extends PBase {
                     }
                 });
 
-                if (!fn.equalsIgnoreCase(gl.param1+".uud"))
-                {
+                if (!fn.equalsIgnoreCase(gl.param1+".uud"))   {
                     match(fn);
                     if (match) return true;
                 }
@@ -524,7 +501,7 @@ public class EnrollmentActivity extends PBase {
         match=false;spos=-1;
         scode="";matchcode="";
 
-        m_text_conclusionString="Buscando huella ..";
+        m_text_conclusionString=".........";
         m_textprog="";
 
         runOnUiThread(new Runnable() {
@@ -534,29 +511,17 @@ public class EnrollmentActivity extends PBase {
             }
         });
 
+        Date time1 = Calendar.getInstance().getTime();
+
         for (int i = 0; i <fprint.size(); i++)  {
 
             fn=fprint.get(i);
-
-            m_text_conclusionString="Buscando huella ..";
-            m_textprog=(i+1)+" / "+fprint.size();
-
-            SystemClock.sleep(500);
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    UpdateGUI();
-                }
-            });
-
             match(fn);
 
             if (match) {
                 toast("Huella encontrada.");
                 completeMatch();return;
             }
-
         }
 
         toastbig("\n  HUELLA NO  \n\n ENCONTRADA \n");
@@ -590,8 +555,7 @@ public class EnrollmentActivity extends PBase {
             m_score = m_engine.Compare(fmd, 0, fmdt, 0);
             if (m_score < (0x7FFFFFFF / 100000)) rslt=true; else rslt=false;
 
-        } catch (Exception e)
-        {
+        } catch (Exception e)  {
             msgbox(e.getMessage());rslt=false;
         }
 
@@ -602,8 +566,33 @@ public class EnrollmentActivity extends PBase {
         return rslt;
     }
 
-    private void completeMatch()
-    {
+    private boolean matcharray(String iid)     {
+        Fmd fmdt=null;
+        File file2;
+        int size2,m_score = -1;
+        boolean rslt=false;
+
+        try {
+
+            //fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
+
+            fmdt=gl.fprints.get(0);
+
+            m_score = m_engine.Compare(fmd, 0, fmdt, 0);
+            if (m_score < (0x7FFFFFFF / 100000)) rslt=true; else rslt=false;
+
+        } catch (Exception e) {
+            msgbox(e.getMessage());rslt=false;
+        }
+
+        if (rslt) {
+            match=true;matchcode=iid;
+        }
+
+        return rslt;
+    }
+
+    private void completeMatch()  {
         String cod;
 
         try {

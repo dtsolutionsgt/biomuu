@@ -462,7 +462,7 @@ public class UareUSampleJava extends PBase {
         toast.show();
     }
 
-    public void dofillfp(View view) {
+    public void dofillfp() {
         Fmd fmdt=null;
         File file2;
         int size2,m_score = -1;
@@ -486,7 +486,7 @@ public class UareUSampleJava extends PBase {
 
             gl.fprints.add(fmdt);
 
-            //toast("added :"+gl.fprints.size());
+            toast("added :"+gl.fprints.size());
         } catch (Exception e) {
             msgbox(new Object(){}.getClass().getEnclosingMethod().getName()+" . "+e.getMessage());
         }

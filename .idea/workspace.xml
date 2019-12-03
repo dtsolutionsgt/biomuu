@@ -13,32 +13,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e024565-c2d1-4807-8076-4cb4c226ec99" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_23_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_23_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_23_4_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_23_4_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___C__Users_Jaroslav__gradle_caches_transforms_1_files_1_1_dpuareu_aar_5001aa348f3418b3deefaeddf8852866_unspecified_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___C__Users_Jaroslav__gradle_caches_transforms_1_files_1_1_dpuareu_aar_3dfb76db0ebb2975bfe22ec08eb89dd5_unspecified_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_21_0_3_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_21_0_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_23_4_0_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_21_0_3_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomuu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/biomuu.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout-land/activity_engine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout-land/activity_engine.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uu/PBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uu/PBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" afterDir="false" />
     </list>
@@ -51,7 +41,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.1.168:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="52009f7b60775519" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -66,103 +56,104 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout-land/activity_engine.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="535" selection-start-line="535" selection-end-line="535" />
+            <state relative-caret-position="193">
+              <caret line="551" selection-start-line="551" selection-end-line="551" />
               <folding>
-                <element signature="e#2378#3554#0" />
-                <element signature="e#3230#3348#1" />
-                <element signature="e#3445#3491#1" />
-                <element signature="e#3505#3547#1" />
-                <element signature="e#3560#3575#0" />
-                <element signature="e#3581#3702#0" />
-                <element signature="e#3725#3738#0" />
-                <element signature="e#3744#5063#0" />
-                <element signature="e#3958#4730#0" />
-                <element signature="e#4160#4653#1" />
-                <element signature="e#4191#4529#0" />
-                <element signature="e#4550#4631#0" />
-                <element signature="e#4751#5022#0" />
-                <element signature="e#4786#5004#1" />
-                <element signature="e#5069#7264#0" />
-                <element signature="e#5273#7223#1" />
-                <element signature="e#5300#5447#0" />
-                <element signature="e#5468#5836#0" />
-                <element signature="e#5945#7098#0" />
-                <element signature="e#7119#7205#0" />
-                <element signature="e#7270#7948#0" />
-                <element signature="e#7342#7400#1" />
-                <element signature="e#7406#7476#1" />
-                <element signature="e#7954#8191#0" />
-                <element signature="e#8047#8102#0" />
-                <element signature="e#8130#8185#0" />
-                <element signature="e#8197#8776#0" />
-                <element signature="e#8255#8613#0" />
-                <element signature="e#8634#8770#0" />
-                <element signature="e#8799#8818#0" />
-                <element signature="e#8824#12721#0" />
-                <element signature="e#9045#9182#0" />
-                <element signature="e#9192#12715#0" />
-                <element signature="e#9444#11246#1" />
-                <element signature="e#9483#9920#0" />
-                <element signature="e#9957#10048#0" />
-                <element signature="e#10439#11127#0" />
-                <element signature="e#11164#11232#0" />
-                <element signature="e#11399#11487#1" />
-                <element signature="e#11541#11636#1" />
-                <element signature="e#11721#12353#1" />
-                <element signature="e#11769#11912#1" />
-                <element signature="e#11961#12208#1" />
-                <element signature="e#12214#12339#1" />
-                <element signature="e#12371#12520#1" />
-                <element signature="e#12727#13907#0" />
-                <element signature="e#12780#13769#0" />
-                <element signature="e#12828#13242#1" />
-                <element signature="e#13248#13667#1" />
-                <element signature="e#13798#13901#0" />
-                <element signature="e#13913#14286#0" />
-                <element signature="e#13965#14215#0" />
-                <element signature="e#14236#14280#0" />
-                <element signature="e#14292#15289#0" />
-                <element signature="e#14471#15261#1" />
-                <element signature="e#14502#15160#0" />
-                <element signature="e#15051#15145#1" />
-                <element signature="e#15193#15250#0" />
-                <element signature="e#15558#15681#0" expanded="true" />
-                <element signature="e#15680#15681#0" expanded="true" />
-                <element signature="e#15939#16082#0" expanded="true" />
-                <element signature="e#16081#16082#0" expanded="true" />
-                <element signature="e#16136#17042#0" />
-                <element signature="e#16318#16858#0" />
-                <element signature="e#16887#16945#0" />
-                <element signature="e#16965#17014#1" />
-                <element signature="e#17048#17949#0" />
-                <element signature="e#17116#17819#0" />
-                <element signature="e#17840#17943#0" />
-                <element signature="e#17990#18288#0" />
-                <element signature="e#18294#18470#0" />
-                <element signature="e#18476#19045#0" />
-                <element signature="e#18562#18970#0" />
-                <element signature="e#18769#18960#1" />
-                <element signature="e#18828#18946#1" />
-                <element signature="e#18991#19038#0" />
-                <element signature="e#19088#19104#0" />
-                <element signature="e#19128#19152#0" />
-                <element signature="e#19158#19368#0" />
-                <element signature="e#19374#19786#0" />
-                <element signature="e#19467#19604#0" />
+                <element signature="e#3271#3391#1" />
+                <element signature="e#3480#3526#1" />
+                <element signature="e#3533#3575#1" />
+                <element signature="e#3588#3603#0" />
+                <element signature="e#3609#3726#0" />
+                <element signature="e#3768#5087#0" />
+                <element signature="e#3982#4754#0" />
+                <element signature="e#4184#4677#1" />
+                <element signature="e#4215#4553#0" />
+                <element signature="e#4574#4655#0" />
+                <element signature="e#4775#5046#0" />
+                <element signature="e#4810#5028#1" />
+                <element signature="e#5093#7288#0" />
+                <element signature="e#5297#7247#1" />
+                <element signature="e#5324#5471#0" />
+                <element signature="e#5492#5860#0" />
+                <element signature="e#5969#7122#0" />
+                <element signature="e#7143#7229#0" />
+                <element signature="e#7294#7960#0" />
+                <element signature="e#7354#7412#1" />
+                <element signature="e#7418#7488#1" />
+                <element signature="e#7966#8188#0" />
+                <element signature="e#8052#8107#0" />
+                <element signature="e#8127#8182#0" />
+                <element signature="e#8194#8763#0" />
+                <element signature="e#8242#8600#0" />
+                <element signature="e#8621#8757#0" />
+                <element signature="e#8786#8805#0" />
+                <element signature="e#8811#12570#0" />
+                <element signature="e#9030#9159#0" />
+                <element signature="e#9169#12564#0" />
+                <element signature="e#9401#11142#1" />
+                <element signature="e#9426#9863#0" />
+                <element signature="e#9883#9974#0" />
+                <element signature="e#10350#11038#0" />
+                <element signature="e#11060#11128#0" />
+                <element signature="e#11283#11371#1" />
+                <element signature="e#11413#11508#1" />
+                <element signature="e#11581#12213#1" />
+                <element signature="e#11629#11772#1" />
+                <element signature="e#11821#12068#1" />
+                <element signature="e#12074#12199#1" />
+                <element signature="e#12220#12369#1" />
+                <element signature="e#12576#13742#0" />
+                <element signature="e#12626#13604#0" />
+                <element signature="e#12663#13077#1" />
+                <element signature="e#13083#13502#1" />
+                <element signature="e#13633#13736#0" />
+                <element signature="e#13748#14111#0" />
+                <element signature="e#13790#14040#0" />
+                <element signature="e#14061#14105#0" />
+                <element signature="e#14117#15078#0" />
+                <element signature="e#14286#15050#1" />
+                <element signature="e#14305#14949#0" />
+                <element signature="e#14840#14934#1" />
+                <element signature="e#14982#15039#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1440">
+              <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
+              <folding>
+                <element signature="e#4048#6103#0" />
+                <element signature="e#4177#4236#1" />
+                <element signature="e#4417#6097#0" />
+                <element signature="e#4548#5541#1" />
+                <element signature="e#4697#5431#0" />
+                <element signature="e#5339#5409#1" />
+                <element signature="e#5453#5523#0" />
+                <element signature="e#5547#5609#1" />
+                <element signature="e#5700#6063#1" />
+                <element signature="e#5959#5988#0" />
+                <element signature="e#6351#6779#1" />
+                <element signature="e#6389#6765#0" />
+                <element signature="e#6586#6668#1" />
+                <element signature="e#6674#6747#1" />
+                <element signature="e#6817#6832#0" />
+                <element signature="e#6950#7062#0" />
+                <element signature="e#7147#7345#0" />
+                <element signature="e#7387#8052#0" />
+                <element signature="e#7438#7842#0" />
+                <element signature="e#7863#8044#0" />
+                <element signature="e#7957#8034#1" />
+                <element signature="e#8058#8532#0" />
+                <element signature="e#8102#8323#0" />
+                <element signature="e#8344#8525#0" />
+                <element signature="e#8438#8515#1" />
               </folding>
             </state>
           </provider>
@@ -172,8 +163,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getextra</find>
-      <find />
       <find>Bundle bundle = getIntent().getExtras();</find>
       <find>process</find>
       <find>log.</find>
@@ -202,6 +191,8 @@
       <find>huella no</find>
       <find>huella enc</find>
       <find>hue</find>
+      <find>sl</find>
+      <find>sleep</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -235,24 +226,24 @@
         <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/GetCapabilitiesActivity.java" />
         <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/Globals.java" />
         <option value="$PROJECT_DIR$/src/com/dts/uubio/base/AppMethods.java" />
-        <option value="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" />
         <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/IdentificationActivity.java" />
         <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" />
         <option value="$PROJECT_DIR$/res/layout-land/activity_engine.xml" />
         <option value="$PROJECT_DIR$/src/com/dts/uubio/uu/PBase.java" />
-        <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java" />
+        <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="139" />
-    <option name="y" value="20" />
+    <option name="x" value="83" />
+    <option name="y" value="66" />
     <option name="width" value="1183" />
-    <option name="height" value="685" />
+    <option name="height" value="655" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -263,73 +254,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="dts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="dts" type="462c0819:PsiDirectoryNode" />
-              <item name="uubio" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="dts" type="462c0819:PsiDirectoryNode" />
-              <item name="uubio" type="462c0819:PsiDirectoryNode" />
-              <item name="uusample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="biomuu" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -357,12 +281,28 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
+              <item name="biomuu" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="biomuu" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="192.168.1.168:5555" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-27T19:53:27.026Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-29T18:41:54.136Z" />
     <property name="ExportApk.ApkPath" value="C:\AndrProj2\biomuu" />
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="ExportApk.SignV1" value="true" />
@@ -603,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574289091694</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="#EJC 20191120 Modificaciones al enrolamiento e identificación de personas.">
+      <created>1574949149700</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1574949149700</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -616,7 +563,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="136" y="19" width="1183" height="685" extended-state="0" />
+    <frame x="83" y="66" width="1183" height="655" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -634,10 +581,10 @@
       <window_info anchor="bottom" id="Find" order="3" weight="0.3289225" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32993197" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="6" visible="true" weight="0.11153119" />
-      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info anchor="bottom" id="Build" order="6" visible="true" weight="0.10621242" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.056710776" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.37585035" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.2004008" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -665,12 +612,6 @@
           <line>236</line>
           <properties />
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java</url>
-          <line>157</line>
-          <properties />
-          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dts/uubio/uusample/CaptureFingerprintActivity.java</url>
@@ -765,8 +706,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_pbase.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/base/MiscUtils.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -800,8 +741,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_test.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/StreamImageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -819,8 +760,8 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_compare.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/frame_rect_cyan.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -831,12 +772,12 @@
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dpuareu.aar/5001aa348f3418b3deefaeddf8852866/jars/classes.jar!/com/digitalpersona/uareu/Reader.class" />
     <entry file="file://$PROJECT_DIR$/res/layout/activity_search.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_engine.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uu/Test.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -2177,13 +2118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
@@ -2219,7 +2153,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="90" column="49" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout-land/activity_engine.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state>
           <caret column="74" selection-start-column="74" selection-end-column="74" />
@@ -2243,19 +2194,84 @@
           </folding>
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/base/appGlobals.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="551" selection-start-line="551" selection-end-line="551" />
+          <folding>
+            <element signature="e#3271#3391#1" />
+            <element signature="e#3480#3526#1" />
+            <element signature="e#3533#3575#1" />
+            <element signature="e#3588#3603#0" />
+            <element signature="e#3609#3726#0" />
+            <element signature="e#3768#5087#0" />
+            <element signature="e#3982#4754#0" />
+            <element signature="e#4184#4677#1" />
+            <element signature="e#4215#4553#0" />
+            <element signature="e#4574#4655#0" />
+            <element signature="e#4775#5046#0" />
+            <element signature="e#4810#5028#1" />
+            <element signature="e#5093#7288#0" />
+            <element signature="e#5297#7247#1" />
+            <element signature="e#5324#5471#0" />
+            <element signature="e#5492#5860#0" />
+            <element signature="e#5969#7122#0" />
+            <element signature="e#7143#7229#0" />
+            <element signature="e#7294#7960#0" />
+            <element signature="e#7354#7412#1" />
+            <element signature="e#7418#7488#1" />
+            <element signature="e#7966#8188#0" />
+            <element signature="e#8052#8107#0" />
+            <element signature="e#8127#8182#0" />
+            <element signature="e#8194#8763#0" />
+            <element signature="e#8242#8600#0" />
+            <element signature="e#8621#8757#0" />
+            <element signature="e#8786#8805#0" />
+            <element signature="e#8811#12570#0" />
+            <element signature="e#9030#9159#0" />
+            <element signature="e#9169#12564#0" />
+            <element signature="e#9401#11142#1" />
+            <element signature="e#9426#9863#0" />
+            <element signature="e#9883#9974#0" />
+            <element signature="e#10350#11038#0" />
+            <element signature="e#11060#11128#0" />
+            <element signature="e#11283#11371#1" />
+            <element signature="e#11413#11508#1" />
+            <element signature="e#11581#12213#1" />
+            <element signature="e#11629#11772#1" />
+            <element signature="e#11821#12068#1" />
+            <element signature="e#12074#12199#1" />
+            <element signature="e#12220#12369#1" />
+            <element signature="e#12576#13742#0" />
+            <element signature="e#12626#13604#0" />
+            <element signature="e#12663#13077#1" />
+            <element signature="e#13083#13502#1" />
+            <element signature="e#13633#13736#0" />
+            <element signature="e#13748#14111#0" />
+            <element signature="e#13790#14040#0" />
+            <element signature="e#14061#14105#0" />
+            <element signature="e#14117#15078#0" />
+            <element signature="e#14286#15050#1" />
+            <element signature="e#14305#14949#0" />
+            <element signature="e#14840#14934#1" />
+            <element signature="e#14982#15039#0" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/UareUSampleJava.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="285" column="12" selection-start-line="285" selection-start-column="12" selection-end-line="285" selection-end-column="12" />
+        <state relative-caret-position="1440">
+          <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
           <folding>
-            <element signature="e#2030#2054#0" />
-            <element signature="e#2060#4042#0" />
-            <element signature="e#3393#3511#0" />
-            <element signature="e#3559#3610#0" />
-            <element signature="e#3718#3858#0" />
-            <element signature="e#3964#3978#0" />
             <element signature="e#4048#6103#0" />
             <element signature="e#4177#4236#1" />
             <element signature="e#4417#6097#0" />
@@ -2281,156 +2297,6 @@
             <element signature="e#8102#8323#0" />
             <element signature="e#8344#8525#0" />
             <element signature="e#8438#8515#1" />
-            <element signature="e#8537#9852#0" />
-            <element signature="e#8727#9845#1" />
-            <element signature="e#8746#8824#0" />
-            <element signature="e#8857#8909#0" />
-            <element signature="e#8927#9545#0" />
-            <element signature="e#9014#9530#1" />
-            <element signature="e#9042#9418#0" />
-            <element signature="e#9107#9214#1" />
-            <element signature="e#9443#9512#0" />
-            <element signature="e#9566#9618#0" />
-            <element signature="e#9628#9834#0" />
-            <element signature="e#9651#9737#0" />
-            <element signature="e#9760#9820#0" />
-            <element signature="e#9859#10044#0" />
-            <element signature="e#10047#10464#0" />
-            <element signature="e#10126#10202#1" />
-            <element signature="e#10216#10460#1" />
-            <element signature="e#10470#10700#0" />
-            <element signature="e#10717#10729#0" />
-            <element signature="e#10732#10910#0" />
-            <element signature="e#10913#11096#0" />
-            <element signature="e#11099#11386#0" />
-            <element signature="e#11136#11332#0" />
-            <element signature="e#11359#11383#0" />
-            <element signature="e#11392#11700#0" />
-            <element signature="e#11475#11592#0" />
-            <element signature="e#11706#12351#0" />
-            <element signature="class#12072:12200" />
-            <element signature="e#12302#12345#1" />
-            <element signature="e#12357#12945#0" />
-            <element signature="class#12797:12912" />
-            <element signature="e#12951#13503#0" />
-            <element signature="e#12989#13466#0" />
-            <element signature="e#13509#13705#0" />
-            <element signature="e#13711#14647#0" />
-            <element signature="e#13918#14509#0" />
-            <element signature="e#14530#14640#0" />
-            <element signature="e#14670#14694#0" />
-            <element signature="e#14702#15114#0" />
-            <element signature="e#14787#15038#0" />
-            <element signature="e#14830#14887#1" />
-            <element signature="e#14894#14950#1" />
-            <element signature="e#15059#15108#0" />
-            <element signature="e#15197#15467#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="90" column="49" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout-land/activity_engine.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dts/uubio/uusample/EnrollmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="535" selection-start-line="535" selection-end-line="535" />
-          <folding>
-            <element signature="e#2378#3554#0" />
-            <element signature="e#3230#3348#1" />
-            <element signature="e#3445#3491#1" />
-            <element signature="e#3505#3547#1" />
-            <element signature="e#3560#3575#0" />
-            <element signature="e#3581#3702#0" />
-            <element signature="e#3725#3738#0" />
-            <element signature="e#3744#5063#0" />
-            <element signature="e#3958#4730#0" />
-            <element signature="e#4160#4653#1" />
-            <element signature="e#4191#4529#0" />
-            <element signature="e#4550#4631#0" />
-            <element signature="e#4751#5022#0" />
-            <element signature="e#4786#5004#1" />
-            <element signature="e#5069#7264#0" />
-            <element signature="e#5273#7223#1" />
-            <element signature="e#5300#5447#0" />
-            <element signature="e#5468#5836#0" />
-            <element signature="e#5945#7098#0" />
-            <element signature="e#7119#7205#0" />
-            <element signature="e#7270#7948#0" />
-            <element signature="e#7342#7400#1" />
-            <element signature="e#7406#7476#1" />
-            <element signature="e#7954#8191#0" />
-            <element signature="e#8047#8102#0" />
-            <element signature="e#8130#8185#0" />
-            <element signature="e#8197#8776#0" />
-            <element signature="e#8255#8613#0" />
-            <element signature="e#8634#8770#0" />
-            <element signature="e#8799#8818#0" />
-            <element signature="e#8824#12721#0" />
-            <element signature="e#9045#9182#0" />
-            <element signature="e#9192#12715#0" />
-            <element signature="e#9444#11246#1" />
-            <element signature="e#9483#9920#0" />
-            <element signature="e#9957#10048#0" />
-            <element signature="e#10439#11127#0" />
-            <element signature="e#11164#11232#0" />
-            <element signature="e#11399#11487#1" />
-            <element signature="e#11541#11636#1" />
-            <element signature="e#11721#12353#1" />
-            <element signature="e#11769#11912#1" />
-            <element signature="e#11961#12208#1" />
-            <element signature="e#12214#12339#1" />
-            <element signature="e#12371#12520#1" />
-            <element signature="e#12727#13907#0" />
-            <element signature="e#12780#13769#0" />
-            <element signature="e#12828#13242#1" />
-            <element signature="e#13248#13667#1" />
-            <element signature="e#13798#13901#0" />
-            <element signature="e#13913#14286#0" />
-            <element signature="e#13965#14215#0" />
-            <element signature="e#14236#14280#0" />
-            <element signature="e#14292#15289#0" />
-            <element signature="e#14471#15261#1" />
-            <element signature="e#14502#15160#0" />
-            <element signature="e#15051#15145#1" />
-            <element signature="e#15193#15250#0" />
-            <element signature="e#15558#15681#0" expanded="true" />
-            <element signature="e#15680#15681#0" expanded="true" />
-            <element signature="e#15939#16082#0" expanded="true" />
-            <element signature="e#16081#16082#0" expanded="true" />
-            <element signature="e#16136#17042#0" />
-            <element signature="e#16318#16858#0" />
-            <element signature="e#16887#16945#0" />
-            <element signature="e#16965#17014#1" />
-            <element signature="e#17048#17949#0" />
-            <element signature="e#17116#17819#0" />
-            <element signature="e#17840#17943#0" />
-            <element signature="e#17990#18288#0" />
-            <element signature="e#18294#18470#0" />
-            <element signature="e#18476#19045#0" />
-            <element signature="e#18562#18970#0" />
-            <element signature="e#18769#18960#1" />
-            <element signature="e#18828#18946#1" />
-            <element signature="e#18991#19038#0" />
-            <element signature="e#19088#19104#0" />
-            <element signature="e#19128#19152#0" />
-            <element signature="e#19158#19368#0" />
-            <element signature="e#19374#19786#0" />
-            <element signature="e#19467#19604#0" />
           </folding>
         </state>
       </provider>
