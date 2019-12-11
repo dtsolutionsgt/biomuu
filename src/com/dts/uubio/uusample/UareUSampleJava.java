@@ -125,16 +125,7 @@ public class UareUSampleJava extends PBase {
 
         OnCreateFirst= true;
 
-        if (gl.fprints.size()==0) {
-            Handler mtimer = new Handler();
-            Runnable mrunner=new Runnable() {
-                @Override
-                public void run() {
-                    dofillfp();
-                }
-            };
-            mtimer.postDelayed(mrunner,800);
-        }
+        if (gl.fprints.size()==0) dofillfp();
 
         huellas.setText("Huellas : "+gl.fprints.size());
 
@@ -186,8 +177,7 @@ public class UareUSampleJava extends PBase {
 
                 pendingreader=false;
 
-                if (pendingbundle)
-                {
+                if (pendingbundle) {
                     pendingbundle=false;
 
                    if (gl.method != null) if (gl.method.equalsIgnoreCase("1")) launchEnrollment();
@@ -230,7 +220,6 @@ public class UareUSampleJava extends PBase {
     public void doCompare(View view) {
         startActivity(new Intent(this,com.dts.uubio.uu.Compare.class));
     }
-
 
     public void suspend(View view)
     {
@@ -354,8 +343,7 @@ public class UareUSampleJava extends PBase {
         {
             displayNoID();
             inicio_enrolment = false;
-        } else
-        {
+        } else  {
             gl.modoid=false;
             Intent i = new Intent(UareUSampleJava.this, EnrollmentActivity.class);
             i.putExtra("device_name", gl.devicename);
@@ -403,9 +391,9 @@ public class UareUSampleJava extends PBase {
     private void reinitReader() {
         pendingreader=true;
 
-        try
-        {
+        try  {
             m_selectedDevice.setText("Dispositivo : (Sin lector)");
+            //toastbig("Dispositivo está sin lector");
             setButtonsEnabled(false);
         } catch (Exception e) {
         }
@@ -478,28 +466,47 @@ public class UareUSampleJava extends PBase {
         byte[] fmtByte2;
         boolean rslt=false;
         Engine m_engine = null;
+        String fn="";
+
+        try   {
+            File folder = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata");
+            File[] filesInFolder = folder.listFiles();
+
+            for (File file : filesInFolder) {
+                if (!file.isDirectory()) {
+                    fn=new String(file.getName());
+                    gl.fprintid.add(fn);
+                }
+            }
+        } catch (Exception e) {
+            msgbox(e.getMessage());
+        }
 
         try {
 
             m_engine = UareUGlobal.GetEngine();
 
-            for (int i = 0; i <200; i++) {
+            for (int i = 0; i <gl.fprintid.size(); i++) {
 
-                file2 = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata/2329.uud");
-                size2 = (int) file2.length();
-                fmtByte2 = new byte[size2];
+                try {
+                    fn=gl.fprintid.get(i);
 
-                BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
-                buf2.read(fmtByte2, 0, fmtByte2.length);
-                buf2.close();
+                    file2 = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata/"+fn);
+                    size2 = (int) file2.length();
+                    fmtByte2 = new byte[size2];
 
-                fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
+                    BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(file2));
+                    buf2.read(fmtByte2, 0, fmtByte2.length);
+                    buf2.close();
 
-                gl.fprints.add(fmdt);
+                    fmdt = m_engine.CreateFmd(fmtByte2,320,360,512, 0, 1, Fmd.Format.ANSI_378_2004);
 
-            }
+                    gl.fprints.add(fmdt);
+                } catch (Exception e) {
+                    msgbox("Huella : "+fn+" - "+e.getMessage());
+                }
+             }
 
-            toast("added :"+gl.fprints.size());
         } catch (Exception e) {
             msgbox(new Object(){}.getClass().getEnclosingMethod().getName()+" . "+e.getMessage());
         }

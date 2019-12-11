@@ -127,7 +127,8 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="@string/serial_number" />
+        android:text="@string/serial_number"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -147,7 +148,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:text="DTSolutions S.A. (C) 2019 , Guatemala  - version 1.6 , 29-Nov-2019" />
+        android:text="DTSolutions S.A. (C) 2019 , Guatemala  - version 2.1 , 10-Dic-2019" />
 
     <Button
         android:id="@+id/button7"

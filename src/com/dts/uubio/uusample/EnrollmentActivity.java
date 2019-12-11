@@ -110,7 +110,7 @@ public class EnrollmentActivity extends PBase {
             return;
         };
 
-        getFPList();
+        //getFPList();
 
         m_bitmap= null;
         m_fprints.setText("Huellas : "+gl.fprints.size());
@@ -118,7 +118,7 @@ public class EnrollmentActivity extends PBase {
 
         if (modo) {
             beginIdentification();
-        } else  {
+           } else  {
             beginEnrollment();
         }
 
@@ -514,23 +514,28 @@ public class EnrollmentActivity extends PBase {
             }
         });
 
-        Date time1 = Calendar.getInstance().getTime();
+
+        //Date time1 = Calendar.getInstance().getTime();
 
         matchid=-1;
-        for (int i = 0; i <gl.fprints.size(); i++)  {
-            matcharray(i);ii=i;
 
-            /*
-            if (match) {
-                toast("Huella encontrada.");
-                completeMatch();return;
+        int fpc=gl.fprints.size();
+
+        try {
+            for (int i = 0; i <fpc; i++)  {
+               matcharray(i);ii=i;
+               if (match) {
+                   toast("Huella encontrada");
+                   completeMatch();return;
+               }
             }
-            */
+        } catch (Exception e) {
+            toast("err "+e.getMessage());
         }
 
-        Date time2 = Calendar.getInstance().getTime();
-        long td=time2.getTime()-time1.getTime();
-        toastlong("Tiempo : "+mu.frmdecimal(((double)td)/1000,2)+" [seg] cant : "+ii);
+        //Date time2 = Calendar.getInstance().getTime();
+        //long td=time2.getTime()-time1.getTime();
+        //toastlong("Tiempo : "+mu.frmdecimal(((double)td)/1000,2)+" [seg] cant : "+ii);
 
          /*
         for (int i = 0; i < fprint.size(); i++) {
@@ -544,12 +549,17 @@ public class EnrollmentActivity extends PBase {
         }
         */
 
-        toastbig("\n  HUELLA NO  \n\n ENCONTRADA \n");
+        try {
 
-        SystemClock.sleep(100);
-        moveTaskToBack(true);
-        callflag=true;
-        onBackPressed();
+            toastbig("\n  HUELLA NO  \n\n ENCONTRADA \n");
+
+            SystemClock.sleep(100);
+            moveTaskToBack(true);
+            callflag=true;
+            onBackPressed();
+        } catch (Exception e) {
+            toast("err "+e.getMessage());
+        }
     }
 
     private boolean match(String iid)     {
@@ -602,7 +612,7 @@ public class EnrollmentActivity extends PBase {
         }
 
         if (rslt){
-            match=true;matchid=fpos;
+            match=true;matchid=fpos;matchcode=gl.fprintid.get(fpos);
         }
 
         return rslt;
@@ -663,15 +673,12 @@ public class EnrollmentActivity extends PBase {
         String fn;
         ss="";
 
-        try
-        {
+        try   {
             File folder = new File(Environment.getExternalStorageDirectory()+ "/fpuaudata");
             File[] filesInFolder = folder.listFiles();
 
-            for (File file : filesInFolder)
-            {
-                if (!file.isDirectory())
-                {
+            for (File file : filesInFolder) {
+                if (!file.isDirectory()) {
                     fn=new String(file.getName());
                     fprint.add(fn);ss+=fn+"\n";
                 }

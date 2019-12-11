@@ -83,14 +83,18 @@ public class PBase extends Activity {
 
         if (mu.emptystr(msg)) return;
 
-        Toast toast= Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT);
+        try {
+            Toast toast= Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT);
 
-        RelativeLayout toastLayout = (RelativeLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        toastTV.setTextSize(fsize);
+            //RelativeLayout toastLayout = (RelativeLayout) toast.getView();
+            //TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            //toastTV.setTextSize(fsize);
 
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected String iif(boolean condition,String valtrue,String valfalse) {
